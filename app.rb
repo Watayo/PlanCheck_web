@@ -34,8 +34,13 @@ get '/callback' do
     "client_secret" => @line_secret,
     "code" => params[:code],
     "grant_type" => "authorization_code",
-    "redirect_uri" => "https://boiling-garden-62154.herokuapp.com/callback",
+    "redirect_uri" => "http://localhost:32784/callback",
   )
+
+  req_options = {
+    use_ssl: uri.scheme == "https",
+  }
+
 
   response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
     http.request(request)
