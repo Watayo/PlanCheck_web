@@ -18,7 +18,7 @@ gem 'bcrypt'
 gem 'dotenv' #.gitignoreを使うために入れる
 
 group :development do
-  gem 'sqlite3' , '1.4.1'
+  gem 'sqlite3' , '~> 1.3.6'
   gem 'pry'
   gem 'rubocop-performance'
 end
