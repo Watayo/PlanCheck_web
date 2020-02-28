@@ -41,4 +41,6 @@ get '/callback' do
   response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
     http.request(request)
   end
+
+  redirect '/'
 end
