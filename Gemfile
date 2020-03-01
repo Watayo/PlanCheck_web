@@ -17,6 +17,8 @@ gem 'bcrypt'
 
 gem 'dotenv' #.gitignoreを使うために入れる
 
+gem 'jwt'
+
 group :development do
   gem 'sqlite3' , '~> 1.3.6'
   gem 'pry'
@@ -29,4 +31,4 @@ end
 
 
 #line-oauth認証
-gem 'oauth'
+gem 'oauth2'

@@ -7,5 +7,4 @@ end
 
 class User < ActiveRecord::Base
 
-
 end

@@ -6,8 +6,12 @@
 </head>
 <body>
 <nav>
-  <a href="/signup">SignUp</a>
-  <a href="/login">Login</a>
+  <% if current_user.nil? %>
+    <a href="/signup">SignUp</a>
+    <a href="/login">Login</a>
+  <% else %>
+    <a href="/signout">SignOut</a>
+  <% end %>
 </nav>
   <%= yield %>
 </body>
