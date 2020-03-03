@@ -1,3 +1,19 @@
 <div>
   <h1><%= current_user.name %>のページ</h1>
+  <div>
+    <% @user_tasks.each do |user_task| %>
+      <h3>タスク名<%= user_task.name %></h3>
+      <div><%#  期日 %>
+        <h4><%= user_task.due_time %></h4>
+      </div>
+      <div><%# コメント %>
+        <h4><%= user_task.task_comment %></h4>
+      </div>
+      <% user_task.costs.each do |user_task_cost| %>
+        <div><%# コメント %>
+          <p><%= user_task_cost.name %></p>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
 </div>

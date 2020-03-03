@@ -6,5 +6,21 @@ if development?
 end
 
 class User < ActiveRecord::Base
+  has_many :tasks
+  has_many :costs
+end
 
+class Task < ActiveRecord::Base
+  belongs_to :user
+  has_many :costs
+end
+
+class Cost < ActiveRecord::Base
+  belongs_to :user
+  belongs_to :task
+  has_many :estimation
+end
+
+class Estimation < ActiveRecord::Base
+  belongs_to :cost
 end

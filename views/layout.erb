@@ -5,14 +5,18 @@
 	<title>タイトル</title>
 </head>
 <body>
+<div>
 <nav>
   <% if current_user.nil? %>
-    <a href="/signup">SignUp</a>
+    <a href="/signup">Signup</a>
     <a href="/login">Login</a>
   <% else %>
-    <a href="/signout">SignOut</a>
+    <a href="/task_register">タスク登録</a>
+    <a href="/cost_register">コスト登録</a>
+    <a href="/signout">Signout</a>
   <% end %>
 </nav>
+</div>
   <%= yield %>
 </body>
 </html>

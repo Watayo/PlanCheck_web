@@ -92,8 +92,53 @@ get '/signout' do
 end
 
 get '/userpage' do
-  if current_user.nil?
-    # current_userの統計情報が乗る
-  end
+  # current_userの統計情報が乗る
+  # タスク登録とコスト登録のボタン
+  @user_tasks = current_user.tasks
   erb :userpage
+end
+
+get '/task_register' do
+  #タスク登録のページを表示
+  #最初に時間のコストは定義しておく?
+  if current_user.costs.nil?
+    @user_costs = none
+  else
+    @user_costs = current_user.costs
+  end
+  erb :task_register
+end
+
+post '/task_register' do
+  #タスク登録
+  register_task = current_user.tasks.create(
+    name: params[:task_name],
+    task_comment: params[:task_comment]
+  )
+  if !register_task.costs.nil?
+    register_task.costs.each do |register_task_cost|
+      if register_task_cost.id == params[:user_cost.id]
+        register_task_cost.estimations.create(
+          cost_estimation: params[:cost_estimation],
+          task_estimation: params[:task_estimation]
+        )
+      end
+    end
+  end
+  redirect "userpage"
+end
+
+get '/cost_register' do
+  # コスト登録のページを表示
+  erb :cost_register
+end
+
+post '/cost_register' do
+  # コスト登録
+  current_user.costs.create(
+    name: params[:cost_name],
+    parameter_name: params[:parameter_name],
+    def_explain: params[:def_explain]
+  )
+  redirect '/userpage'
 end

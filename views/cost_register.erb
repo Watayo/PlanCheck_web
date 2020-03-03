@@ -1,0 +1,19 @@
+ <%# コスト登録 %>
+ <h2>コスト登録</h2>
+ <div>
+  <form action="/cost_register" method="post">
+    <div>
+      <h3>コスト名</h3>
+      <input name="cost_name" placeholder="コスト名を入力">
+    </div>
+    <div>
+      <h3>パラメーター名</h3>
+      <input name="parameter_name" value="今どのくらい？">
+    </div>
+    <div>
+      <h3>コスト定義説明・補足</h3>
+      <input name="def_explain" placeholder="説明を書いておくと見積もりが考えやすくなります">
+    </div>
+    <input type=submit value="登録">
+  </form>
+ </div>

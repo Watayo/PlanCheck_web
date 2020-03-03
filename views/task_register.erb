@@ -1,0 +1,40 @@
+<%# タスク登録のページ %>
+<%# コストごとの今までの見積もり成功割合 %>
+<div>
+</div>
+<%# -------------------ここからタスク情報入力---------------------- %>
+<%#  登録手順 タスク名 -> コスト見積もり -> コメント -> 期日 %>
+<div>
+  <form action="/task_register" method="post">
+    <%# タスク名入力 %>
+    <div>
+      <input name="task_name" placeholder="タスク名を入力">
+    </div>
+    <%# コストごとの見積もり入力 %>
+    <div>
+      <% @user_costs.each do |user_cost| %>
+        <h3>コスト名:<%= user_cost.name %></h3>
+        <input type="hidden" name="cost_id" value="<%= user_cost.id %>">
+        <div>
+          <%# ユーザーが思う自分が持っているコスト量予測 %>
+          <h4><%= user_cost.parameter_name%></h4>
+          <input type="range" name="cost_estimation" min="0" max="100" step="1" value="50"></li>
+
+          <%# ユーザーの予測するタスク量 %>
+          <h4>タスク量</h4>
+          <input type="range" name="task_estimation" min="0"
+          max="100" step="1" value="50"></li>
+        </div>
+      <% end %>
+    </div>
+    <%# タスクに関してコメントを残す %>
+    <div>
+      <input name="task_comment" placeholder="補足を書いておくと後々反省しやすくなります。">
+    </div>
+    <%# タスクの期日を入力 %>
+    <div>
+      <input type="datetime-local" name="due_time">
+    </div>
+      <input type="submit" value="登録">
+  </form>
+</div>
