@@ -10,7 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_27_174223) do
+ActiveRecord::Schema.define(version: 2020_03_02_060846) do
+
+  create_table "costs", force: :cascade do |t|
+    t.string "name"
+    t.string "parameter_name"
+    t.text "def_explain"
+    t.float "statistic_info"
+    t.integer "user_id"
+    t.integer "task_id"
+    t.index ["task_id"], name: "index_costs_on_task_id"
+    t.index ["user_id"], name: "index_costs_on_user_id"
+  end
+
+  create_table "estimations", force: :cascade do |t|
+    t.integer "cost_estimation"
+    t.integer "task_estimation"
+    t.integer "cost_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cost_id"], name: "index_estimations_on_cost_id"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string "name"
+    t.text "task_comment"
+    t.datetime "due_time"
+    t.boolean "completed"
+    t.boolean "star"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_tasks_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
