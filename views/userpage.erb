@@ -2,7 +2,7 @@
   <h1><%= current_user.name %>のページ</h1>
   <div>
     <% @user_tasks.each do |user_task| %>
-      <h3>タスク名<%= user_task.name %></h3>
+      <h3>タスク名:<%= user_task.name %></h3>
       <div><%#  期日 %>
         <h4><%= user_task.due_time %></h4>
       </div>
@@ -10,8 +10,14 @@
         <h4><%= user_task.task_comment %></h4>
       </div>
       <% user_task.costs.each do |user_task_cost| %>
-        <div><%# コメント %>
+        <div><%# コスト %>
           <p><%= user_task_cost.name %></p>
+          <%# 今回のタスクに対するそれぞれのコストの予想などを表示する。 %>
+          <% this_estimation = user_task_cost.estimations.find_by(task_id: user_task.id) %>
+          <%# ユーザーが定義したパラメーター名前：{予測数値}と表示したい %>
+          <p><%= user_task_cost.parameter_name %>：<%= this_estimation.cost_estimation %></p>
+          <%# タスク量：{予測数値}と表示したい %>
+          <p>タスク量：<%= this_estimation.task_estimation %>
         </div>
       <% end %>
     <% end %>

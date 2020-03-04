@@ -95,6 +95,7 @@ get '/userpage' do
   # current_userの統計情報が乗る
   # タスク登録とコスト登録のボタン
   @user_tasks = current_user.tasks
+
   erb :userpage
 end
 
@@ -115,17 +116,23 @@ post '/task_register' do
     name: params[:task_name],
     task_comment: params[:task_comment]
   )
-  if !register_task.costs.nil?
-    register_task.costs.each do |register_task_cost|
-      if register_task_cost.id == params[:user_cost.id]
-        register_task_cost.estimations.create(
-          cost_estimation: params[:cost_estimation],
-          task_estimation: params[:task_estimation]
-        )
-      end
-    end
+  # ユーザーの持つコストごとにタスクをタグつけ
+  user_costs = current_user.costs
+  user_costs.each do |user_cost|
+    Cost.update(
+      task_id: register_task.id
+    )
+
+    Estimation.create(
+      task_id: register_task.id,
+      cost_id: user_cost.id,
+      cost_estimation: params[:cost_estimation],
+      task_estimation: params[:task_estimation]
+    )
   end
-  redirect "userpage"
+
+
+  redirect "/userpage"
 end
 
 get '/cost_register' do

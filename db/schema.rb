@@ -26,10 +26,12 @@ ActiveRecord::Schema.define(version: 2020_03_02_060846) do
   create_table "estimations", force: :cascade do |t|
     t.integer "cost_estimation"
     t.integer "task_estimation"
+    t.integer "task_id"
     t.integer "cost_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cost_id"], name: "index_estimations_on_cost_id"
+    t.index ["task_id"], name: "index_estimations_on_task_id"
   end
 
   create_table "tasks", force: :cascade do |t|
