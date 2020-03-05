@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_02_060846) do
+ActiveRecord::Schema.define(version: 2020_03_04_062305) do
 
   create_table "costs", force: :cascade do |t|
     t.string "name"
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 2020_03_02_060846) do
     t.float "statistic_info"
     t.integer "user_id"
     t.integer "task_id"
+    t.integer "estimation_id"
+    t.index ["estimation_id"], name: "index_costs_on_estimation_id"
     t.index ["task_id"], name: "index_costs_on_task_id"
     t.index ["user_id"], name: "index_costs_on_user_id"
   end
@@ -34,12 +36,22 @@ ActiveRecord::Schema.define(version: 2020_03_02_060846) do
     t.index ["task_id"], name: "index_estimations_on_task_id"
   end
 
+  create_table "feedbacks", force: :cascade do |t|
+    t.integer "cost_fact"
+    t.integer "task_fact"
+    t.text "feedback_comment"
+    t.integer "task_id"
+    t.integer "cost_id"
+    t.index ["cost_id"], name: "index_feedbacks_on_cost_id"
+    t.index ["task_id"], name: "index_feedbacks_on_task_id"
+  end
+
   create_table "tasks", force: :cascade do |t|
     t.string "name"
     t.text "task_comment"
     t.datetime "due_time"
     t.boolean "completed"
-    t.boolean "star"
+    t.boolean "done"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
