@@ -1,0 +1,17 @@
+<div>
+  <% @user_costs.each do |user_cost| %>
+    <p><%= user_cost.name %>の統計</p>
+    <% cost_estimations = user_cost.estimations %>
+    <% cost_feedbacks = user_cost.feedbacks %>
+      <% cost_estimations.each do |estimation| %>
+        <p>今までの予想羅列。</p>
+        <%= estimation.cost_estimation %>
+        <%= estimation.task_estimation %>
+      <% end %>
+      <% cost_feedbacks.each do |feedback| %>
+        <p>今までのFEEDBACK羅列。</p>
+        <%= feedback.cost_fact %>
+        <%= feedback.task_fact %>
+      <% end %>
+  <% end %>
+</div>

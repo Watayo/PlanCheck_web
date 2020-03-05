@@ -7,6 +7,7 @@ class CreateCosts < ActiveRecord::Migration[5.2]
       t.float :statistic_info
       t.references :user
       t.references :task
+      t.references :estimation
     end
   end
 end

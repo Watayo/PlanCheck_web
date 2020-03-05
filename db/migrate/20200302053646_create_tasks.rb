@@ -5,7 +5,7 @@ class CreateTasks < ActiveRecord::Migration[5.2]
       t.text :task_comment
       t.datetime :due_time
       t.boolean :completed
-      t.boolean :star
+      t.boolean :done
       t.references :user
       t.timestamps null: false
     end

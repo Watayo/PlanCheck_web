@@ -95,6 +95,7 @@ get '/userpage' do
   # current_userの統計情報が乗る
   # タスク登録とコスト登録のボタン
   @user_tasks = current_user.tasks
+  @user_costs = current_user.costs
   erb :userpage
 end
 
@@ -113,19 +114,24 @@ post '/task_register' do
   #タスク登録
   register_task = current_user.tasks.create(
     name: params[:task_name],
+    due_time: params[:due_time],
     task_comment: params[:task_comment]
   )
-  if !register_task.costs.nil?
-    register_task.costs.each do |register_task_cost|
-      if register_task_cost.id == params[:user_cost.id]
-        register_task_cost.estimations.create(
-          cost_estimation: params[:cost_estimation],
-          task_estimation: params[:task_estimation]
-        )
-      end
-    end
+  # ユーザーの持つコストごとにタスクをタグつけ
+  user_costs = current_user.costs
+  user_costs.each do |user_cost|
+    Cost.update(
+      task_id: register_task.id
+    )
+
+    Estimation.create(
+      task_id: register_task.id,
+      cost_id: user_cost.id,
+      cost_estimation: params[:cost_estimation],
+      task_estimation: params[:task_estimation]
+    )
   end
-  redirect "userpage"
+  redirect "/userpage"
 end
 
 get '/cost_register' do
@@ -141,4 +147,52 @@ post '/cost_register' do
     def_explain: params[:def_explain]
   )
   redirect '/userpage'
+end
+
+post '/cost_delete/:id' do
+  delete_cost = Cost.find(params[:id])
+  delete_cost.destroy
+  redirect '/userpage'
+end
+
+post '/task_delete/:id' do
+  delete_task = Task.find(params[:id])
+  delete_task.destroy
+  redirect '/userpage'
+end
+
+post '/task_done/:id' do
+  done_task = Task.find(params[:id])
+  done_task.done = !done_task.done
+  done_task.save
+  redirect '/userpage'
+end
+
+get '/task_feedback/:id' do
+  @task = Task.find(params[:id])
+  @task_costs = @task.costs
+
+  erb :task_feedback
+end
+
+post '/feedback_processing' do
+  user_costs = current_user.costs
+
+  user_costs.each do |user_cost|
+    Feedback.create(
+      task_id: params[:task_id],
+      cost_id: user_cost.id,
+      cost_fact: params[:cost_fact],
+      task_fact: params[:task_fact],
+      feedback_comment: params[:feedback_comment]
+    )
+  end
+  redirect '/userpage'
+end
+
+get '/user_statistics' do
+  # ユーザーが定義したコストごとに今までの統計を表示する。
+  @user_tasks = current_user.tasks
+  @user_costs = current_user.costs
+  erb :user_statistics
 end
