@@ -17,6 +17,7 @@ gem 'bcrypt'
 
 gem 'dotenv' #.gitignoreを使うために入れる
 
+gem 'json'
 gem 'jwt'
 
 group :development do
