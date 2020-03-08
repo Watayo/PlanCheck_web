@@ -43,6 +43,8 @@ end
 
 # LINE AOuth認証
 get '/line_callback' do
+  local = "http://localhost:32788/line_callback"
+  heroku = "https://boiling-garden-62154.herokuapp.com/line_callback"
   uri = URI.parse("https://api.line.me/oauth2/v2.1/token")
   request = Net::HTTP::Post.new(uri)
   request.content_type = "application/x-www-form-urlencoded"
@@ -51,7 +53,7 @@ get '/line_callback' do
     "client_secret" => @line_secret,
     "code" => params[:code],
     "grant_type" => "authorization_code",
-    "redirect_uri" => "http://localhost:32788/line_callback",
+    "redirect_uri" => heroku
   )
 
   req_options = {
