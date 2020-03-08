@@ -153,13 +153,11 @@ end
 
 get '/task_feedback/:id' do
   @task = Task.find(params[:id])
-
   erb :task_feedback
 end
 
 post '/feedback_processing' do
   redirect '/userpage'
-
 end
 
 get '/user_statistics' do
