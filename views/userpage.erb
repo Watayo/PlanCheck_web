@@ -41,7 +41,7 @@
       <div><%# 完了したかまたは機嫌が過ぎたらFeedBackのページに %>
         <% if !user_task.done %>
           <div>
-            締め切りまで<%= (user_task.due_time - Time.now).to_i %>です。
+            締め切りまで○○です。
           </div>
           <form action="/task_done/<%= user_task.id %>" method="post">
             <input type="submit" value="DONE">

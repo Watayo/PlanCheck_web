@@ -134,26 +134,26 @@ post '/task_register' do
   redirect "/userpage"
 end
 
-get '/cost_register' do
-  # コスト登録のページを表示
-  erb :cost_register
-end
+# get '/cost_register' do
+#   # コスト登録のページを表示
+#   erb :cost_register
+# end
 
-post '/cost_register' do
-  # コスト登録
-  current_user.costs.create(
-    name: params[:cost_name],
-    parameter_name: params[:parameter_name],
-    def_explain: params[:def_explain]
-  )
-  redirect '/userpage'
-end
+# post '/cost_register' do
+#   # コスト登録
+#   current_user.costs.create(
+#     name: params[:cost_name],
+#     parameter_name: params[:parameter_name],
+#     def_explain: params[:def_explain]
+#   )
+#   redirect '/userpage'
+# end
 
-post '/cost_delete/:id' do
-  delete_cost = Cost.find(params[:id])
-  delete_cost.destroy
-  redirect '/userpage'
-end
+# post '/cost_delete/:id' do
+#   delete_cost = Cost.find(params[:id])
+#   delete_cost.destroy
+#   redirect '/userpage'
+# end
 
 post '/task_delete/:id' do
   delete_task = Task.find(params[:id])
@@ -188,6 +188,7 @@ post '/feedback_processing' do
     )
   end
   redirect '/userpage'
+
 end
 
 get '/user_statistics' do

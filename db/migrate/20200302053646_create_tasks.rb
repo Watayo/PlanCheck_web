@@ -3,9 +3,10 @@ class CreateTasks < ActiveRecord::Migration[5.2]
     create_table :tasks do |t|
       t.string :name
       t.text :task_comment
-      t.datetime :due_time
+      t.date :due_date
       t.boolean :completed
-      t.boolean :done
+      t.string :hashtag
+      t.integer :relative_evaluation
       t.references :user
       t.timestamps null: false
     end
