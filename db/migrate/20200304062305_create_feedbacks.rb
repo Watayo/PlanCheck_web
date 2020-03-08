@@ -3,7 +3,6 @@ class CreateFeedbacks < ActiveRecord::Migration[5.2]
     create_table :feedbacks do |t|
       t.integer :fact
       t.text :feedback_comment
-      t.references :task
       t.references :task_scale
       t.references :task_period
       t.references :task_manhour

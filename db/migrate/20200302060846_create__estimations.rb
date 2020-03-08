@@ -3,7 +3,6 @@ class CreateEstimations < ActiveRecord::Migration[5.2]
     create_table :estimations do |t|
       t.integer :estimation
       t.text :estimation_comment
-      t.references :task
       t.references :task_scale
       t.references :task_period
       t.references :task_manhour

@@ -10,12 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_08_065534) do
+ActiveRecord::Schema.define(version: 2020_03_08_153908) do
 
   create_table "estimations", force: :cascade do |t|
     t.integer "estimation"
     t.text "estimation_comment"
-    t.integer "task_id"
     t.integer "task_scale_id"
     t.integer "task_period_id"
     t.integer "task_manhour_id"
@@ -23,7 +22,6 @@ ActiveRecord::Schema.define(version: 2020_03_08_065534) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["task_experience_id"], name: "index_estimations_on_task_experience_id"
-    t.index ["task_id"], name: "index_estimations_on_task_id"
     t.index ["task_manhour_id"], name: "index_estimations_on_task_manhour_id"
     t.index ["task_period_id"], name: "index_estimations_on_task_period_id"
     t.index ["task_scale_id"], name: "index_estimations_on_task_scale_id"
@@ -32,7 +30,6 @@ ActiveRecord::Schema.define(version: 2020_03_08_065534) do
   create_table "feedbacks", force: :cascade do |t|
     t.integer "fact"
     t.text "feedback_comment"
-    t.integer "task_id"
     t.integer "task_scale_id"
     t.integer "task_period_id"
     t.integer "task_manhour_id"
@@ -40,26 +37,41 @@ ActiveRecord::Schema.define(version: 2020_03_08_065534) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["task_experience_id"], name: "index_feedbacks_on_task_experience_id"
-    t.index ["task_id"], name: "index_feedbacks_on_task_id"
     t.index ["task_manhour_id"], name: "index_feedbacks_on_task_manhour_id"
     t.index ["task_period_id"], name: "index_feedbacks_on_task_period_id"
     t.index ["task_scale_id"], name: "index_feedbacks_on_task_scale_id"
   end
 
+  create_table "hashtags", force: :cascade do |t|
+    t.integer "task_id"
+    t.integer "tag_id"
+    t.index ["tag_id"], name: "index_hashtags_on_tag_id"
+    t.index ["task_id", "tag_id"], name: "index_hashtags_on_task_id_and_tag_id", unique: true
+    t.index ["task_id"], name: "index_hashtags_on_task_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "tagname"
+  end
+
   create_table "task_experiences", force: :cascade do |t|
-    t.integer "experience_value"
+    t.integer "task_id"
+    t.index ["task_id"], name: "index_task_experiences_on_task_id"
   end
 
   create_table "task_manhours", force: :cascade do |t|
-    t.integer "manhour_value"
+    t.integer "task_id"
+    t.index ["task_id"], name: "index_task_manhours_on_task_id"
   end
 
   create_table "task_periods", force: :cascade do |t|
-    t.integer "period_value"
+    t.integer "task_id"
+    t.index ["task_id"], name: "index_task_periods_on_task_id"
   end
 
   create_table "task_scales", force: :cascade do |t|
-    t.integer "scale_value"
+    t.integer "task_id"
+    t.index ["task_id"], name: "index_task_scales_on_task_id"
   end
 
   create_table "tasks", force: :cascade do |t|
