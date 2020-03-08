@@ -12,20 +12,32 @@
     </div>
     <%# コストごとの見積もり入力 %>
     <div>
-      <% @user_costs.each do |user_cost| %>
-        <h3>コスト名:<%= user_cost.name %></h3>
-        <input type="hidden" name="cost_id" value="<%= user_cost.id %>">
-        <div>
-          <%# ユーザーが思う自分が持っているコスト量予測 %>
-          <h4><%= user_cost.parameter_name%></h4>
-          <input type="range" name="cost_estimation" min="0" max="100" step="1" value="50"></li>
-
-          <%# ユーザーの予測するタスク量 %>
-          <h4>タスク量</h4>
-          <input type="range" name="task_estimation" min="0"
-          max="100" step="1" value="50"></li>
-        </div>
-      <% end %>
+      作業規模:
+      <input type="checkbox" name="scale_estimation" value="1">1日規模
+      <input type="checkbox" name="scale_estimation" value="2">1週間規模
+      <input type="checkbox" name="scale_estimation" value="3">1ヶ月規模
+      <input name="scale_comment" placeholder="規模コメント">
+    </div>
+    <div>
+      作業期間:
+      <input type="checkbox" name="period_estimation" value="1">なるはや
+      <input type="checkbox" name="period_estimation" value="2">ぴったりしっかり
+      <input type="checkbox" name="period_estimation" value="3">ゆったり
+      <input name="period_comment" placeholder="期間コメント">
+    </div>
+    <div>
+      作業工数:
+      <input type="checkbox" name="manhour_estimation" value="1">ちょうど良いか、少なそう
+      <input type="checkbox" name="manhour_estimation" value="2">やや多いかな
+      <input type="checkbox" name="manhour_estimation" value="3">挑戦的な量
+      <input name="manhour_comment" placeholder="工数コメント">
+    </div>
+    <div>
+      前提知識・経験:
+      <input type="checkbox" name="experience_estimation" value="1">経験あり！簡単
+      <input type="checkbox" name="experience_estimation" value="2">なきにしもあらず、自信ないかも
+      <input type="checkbox" name="experience_estimation" value="3">未知への挑戦
+      <input name="experience_comment" placeholder="経験コメント">
     </div>
     <%# タスクに関してコメントを残す %>
     <div>
@@ -33,7 +45,10 @@
     </div>
     <%# タスクの期日を入力 %>
     <div>
-      <input type="datetime-local" name="due_time">
+      <input type="date" name="due_date">
+    </div>
+    <div>
+      <input type="text" name="hashtag" placeholder="ハッシュタグ">
     </div>
       <input type="submit" value="登録">
   </form>

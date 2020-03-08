@@ -4,29 +4,5 @@
 <%# estimationとfeedbackによる計算をしてコストごとの統計に反映される。 %>
 <div>
   <h3><%= @task.name %>のFEEDBACK</h3>
-  <% @task_costs.each do |task_cost| %>
-    <div>
-      <h4><%= task_cost.name %>の予想</h4>
-        <div>
-          <% this_estimation = task_cost.estimations.find_by(task_id: @task.id) %>
 
-          <p><%= task_cost.parameter_name %>：<%= this_estimation.cost_estimation %></p>
-
-          <p>予想タスク量：<%= this_estimation.task_estimation %></p>
-        </div>
-      <h4><%= task_cost.name %>の結果</h4>
-        <div>
-          <%# feedback結果を入力してフォームで登録！ %>
-          <form action="/feedback_processing" method="post">
-            <input type="hidden" value="<%= @task.id %>" name="task_id">
-            <h5>実際の<%= task_cost.parameter_name %>の量</h5>
-            <input type="range" name="cost_fact">
-            <h5>実際のタスク量</h5>
-            <input type="range" name="task_fact">
-            <input type="text" name="feedback_comment">
-            <input type="submit" value="送信">
-          </form>
-        </div>
-    </div>
-  <% end %>
 </div>

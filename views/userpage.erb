@@ -1,16 +1,8 @@
 <div>
 
   <h1><%= current_user.name %>のページ</h1>
-  <%# コスト一覧 %>
   <div>
-    <h4>コスト一覧</h4>
-    <% @user_costs.each do |user_cost| %>
-      <h5>コスト名：<%= user_cost.name %></h5>
-      <%# コスト消すための %>
-      <form action="/cost_delete/<%= user_cost.id %>" method="post">
-        <input type="submit" value="削除">
-      </form>
-    <% end %>
+
   </div>
 
   <div>
@@ -22,35 +14,26 @@
         </form>
       </div>
       <div><%#  期日 %>
-        <h4><%= user_task.due_time %></h4>
+        <h4><%= user_task.due_date %></h4>
       </div>
       <div><%# コメント %>
         <h4><%= user_task.task_comment %></h4>
       </div>
-      <% user_task.costs.each do |user_task_cost| %>
-        <div><%# コスト %>
-          <p><%= user_task_cost.name %></p>
-          <%# 今回のタスクに対するそれぞれのコストの予想などを表示する。 %>
-          <% this_estimation = user_task_cost.estimations.find_by(task_id: user_task.id) %>
-          <%# ユーザーが定義したパラメーター名前：{予測数値}と表示したい %>
-          <p><%= user_task_cost.parameter_name %>：<%= this_estimation.cost_estimation %></p>
-          <%# タスク量：{予測数値}と表示したい %>
-          <p>タスク量：<%= this_estimation.task_estimation %></p>
-        </div>
-      <% end %>
       <div><%# 完了したかまたは機嫌が過ぎたらFeedBackのページに %>
-        <% if !user_task.done %>
+        <% if !user_task.completed %>
           <div>
-            締め切りまで<%= (user_task.due_time - Time.now).to_i %>です。
+            締め切りまで<%= (user_task.due_date - Date.today).to_i %>です。
           </div>
           <form action="/task_done/<%= user_task.id %>" method="post">
             <input type="submit" value="DONE">
           </form>
         <% else %>
+          <form action="/task_done/<%= user_task.id %>" method="post">
+            <input type="submit" value="DONEじゃない！！">
+          </form>
           <a href="/task_feedback/<%= user_task.id %>">FEEDBACKへ</a>
         <% end %>
       </div>
     <% end %>
   </div>
-
 </div>
