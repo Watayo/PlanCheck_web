@@ -53,7 +53,7 @@ get '/line_callback' do
     "client_secret" => @line_secret,
     "code" => params[:code],
     "grant_type" => "authorization_code",
-    "redirect_uri" => heroku
+    "redirect_uri" => local
   )
 
   req_options = {

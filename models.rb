@@ -23,18 +23,19 @@ class Task < ActiveRecord::Base
     # controller側でcreateしたtweetを取得
     task = Task.find_by(id: self.id)
     # 正規表現
-    tags = self.tag_text.scan(/[#＃][Ａ-Ｚａ-ｚA-Za-z一-鿆0-9０-９ぁ-ヶｦ-ﾟー]+/)
+    tags = self.hashtag.scan(/[#＃][Ａ-Ｚａ-ｚA-Za-z一-鿆0-9０-９ぁ-ヶｦ-ﾟー]+/)
     # mapで要素を１つ１つ取り出して、先頭の＃を除いてDBへ保存する。
     tags.uniq.map do |t|
       tag = Tag.find_or_create_by(hashtag: t.downcase.delete('#'))
       post.tag_types << tag
     end
   end
+
   def parameter_register()
-    self.task_scale.create()
-    self.task_period.create()
-    self.task_manhour.create()
-    self.task_experience.create()
+    TaskScale.create(task_id: self.id)
+    TaskPeriod.create(task_id: self.id)
+    TaskManhour.create(task_id: self.id)
+    TaskExperience.create(task_id: self.id)
   end
 end
 

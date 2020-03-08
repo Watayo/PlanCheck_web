@@ -13,30 +13,30 @@
     <%# コストごとの見積もり入力 %>
     <div>
       作業規模:
-      <input type="checkbox" name="scale_estimation" value="1">1日規模
-      <input type="checkbox" name="scale_estimation" value="2">1週間規模
-      <input type="checkbox" name="scale_estimation" value="3">1ヶ月規模
+      <input type="radio" name="scale_estimation" value="1">1日規模
+      <input type="radio" name="scale_estimation" value="2">1週間規模
+      <input type="radio" name="scale_estimation" value="3">1ヶ月規模
       <input name="scale_comment" placeholder="規模コメント">
     </div>
     <div>
       作業期間:
-      <input type="checkbox" name="period_estimation" value="1">なるはや
-      <input type="checkbox" name="period_estimation" value="2">ぴったりしっかり
-      <input type="checkbox" name="period_estimation" value="3">ゆったり
+      <input type="radio" name="period_estimation" value="1">なるはや
+      <input type="radio" name="period_estimation" value="2">ぴったりしっかり
+      <input type="radio" name="period_estimation" value="3">ゆったり
       <input name="period_comment" placeholder="期間コメント">
     </div>
     <div>
       作業工数:
-      <input type="checkbox" name="manhour_estimation" value="1">ちょうど良いか、少なそう
-      <input type="checkbox" name="manhour_estimation" value="2">やや多いかな
-      <input type="checkbox" name="manhour_estimation" value="3">挑戦的な量
+      <input type="radio" name="manhour_estimation" value="1">ちょうど良いか、少なそう
+      <input type="radio" name="manhour_estimation" value="2">やや多いかな
+      <input type="radio" name="manhour_estimation" value="3">挑戦的な量
       <input name="manhour_comment" placeholder="工数コメント">
     </div>
     <div>
       前提知識・経験:
-      <input type="checkbox" name="experience_estimation" value="1">経験あり！簡単
-      <input type="checkbox" name="experience_estimation" value="2">なきにしもあらず、自信ないかも
-      <input type="checkbox" name="experience_estimation" value="3">未知への挑戦
+      <input type="radio" name="experience_estimation" value="1">経験あり！簡単
+      <input type="radio" name="experience_estimation" value="2">なきにしもあらず、自信ないかも
+      <input type="radio" name="experience_estimation" value="3">未知への挑戦
       <input name="experience_comment" placeholder="経験コメント">
     </div>
     <%# タスクに関してコメントを残す %>

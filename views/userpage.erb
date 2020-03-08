@@ -22,13 +22,13 @@
       <div><%# 完了したかまたは機嫌が過ぎたらFeedBackのページに %>
         <% if !user_task.completed %>
           <div>
-            締め切りまで<%= (user_task.due_date - Date.today).to_i %>です。
+            締め切りまで<%= (user_task.due_date - Date.today).to_i %>日です。
           </div>
-          <form action="/task_done/<%= user_task.id %>" method="post">
+          <form action="/task_completed/<%= user_task.id %>" method="post">
             <input type="submit" value="DONE">
           </form>
         <% else %>
-          <form action="/task_done/<%= user_task.id %>" method="post">
+          <form action="/task_completed/<%= user_task.id %>" method="post">
             <input type="submit" value="DONEじゃない！！">
           </form>
           <a href="/task_feedback/<%= user_task.id %>">FEEDBACKへ</a>
