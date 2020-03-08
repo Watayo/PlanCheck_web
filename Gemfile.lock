@@ -103,7 +103,7 @@ DEPENDENCIES
   fastri
   jwt
   oauth2
-  pg (= 0.21.0)
+  pg (~> 0.21.0)
   pry
   rake
   rcodetools
