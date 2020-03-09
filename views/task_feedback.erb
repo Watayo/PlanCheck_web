@@ -2,77 +2,85 @@
 <%# まず、コストごとのestimationを表示する。%>
 <%# 次に、estimationに対する今回のfeedbackを入力する %>
 <%# estimationとfeedbackによる計算をしてコストごとの統計に反映される。 %>
-<div>
-  <h3><%= @task.name %>のFEEDBACK</h3>
-  <%# 登録した見積もり予想を一覧を表示 %>
-  <div>
-    <h4>あなたの見積もり</h4>
-    <div>
-      作業規模見積もり：
-      <%= @scale_val.estimation %>
-      コメント：
-      <%= @scale_val.estimation_comment %>
-    </div>
-    <div>
-      作業期間見積もり：
-      <%= @period_val.estimation %>
-      コメント：
-      <%= @period_val.estimation_comment %>
-    </div>
-    <div>
-      作業工数見積もり：
-      <%= @manhour_val.estimation %>
-      コメント：
-      <%= @manhour_val.estimation_comment %>
-    </div>
-    <div>
-      作業経験見積もり：
-      <%= @experience_val.estimation %>
-      コメント：
-      <%= @experience_val.estimation_comment %>
-    </div>
-  </div>
-
-  <div>
-    <form action="/feedback_register" method="post">
-      <input type="hidden" name="task_id" value="<%= @task.id %>">
-      <div>
-        <div>
-          作業規模:
-          <input type="radio" name="scale_feedback" value="1">思ってたより多かった
-          <input type="radio" name="scale_feedback" value="2">見積もりぴったり
-          <input type="radio" name="scale_feedback" value="3">結構すぐ終わった
-          <input name="scale_comment" placeholder="規模コメント">
-        </div>
-        <div>
-          作業期間:
-          <input type="radio" name="period_feedback" value="1">めっちゃかかった
-          <input type="radio" name="period_feedback" value="2">見積もりぴったし
-          <input type="radio" name="period_feedback" value="3">ゆとりがあった
-          <input name="period_comment" placeholder="期間コメント">
-        </div>
-        <div>
-          作業工数:
-          <input type="radio" name="manhour_feedback" value="1">過信してました
-          <input type="radio" name="manhour_feedback" value="2">思った通り
-          <input type="radio" name="manhour_feedback" value="3">思ってたより少なめ
-          <input name="manhour_comment" placeholder="工数コメント">
-        </div>
-        <div>
-          前提知識・経験:
-          <input type="radio" name="experience_feedback" value="1">全然知らんかった
-          <input type="radio" name="experience_feedback" value="2">思った通り
-          <input type="radio" name="experience_feedback" value="3">全部知ってた
-          <input name="experience_comment" placeholder="経験コメント">
-        </div>
-      </div>
-      <div>
-
-      </div>
-      <div>
-        <input type="text" name="hashtag" value="<%= @task.hashtag%>" >
-      </div>
-        <input type="submit" value="登録">
-    </form>
-  </div>
+<div class="center-vertical content">
+  <h1>Feedback</h1>
 </div>
+
+<section class="center-vertical content">
+  <div class="post">
+    <div class="left-content">
+      <h3><%= @task.name %>のFEEDBACK</h3>
+    </div>
+    <%# 登録した見積もり予想を一覧を表示 %>
+    <div class="post">
+      <h4>あなたの見積もり</h4>
+      <div class="left-content">
+        作業規模見積もり：
+        <%= @scale_val.estimation %>
+        コメント：
+        <%= @scale_val.estimation_comment %>
+      </div>
+      <div class="left-content">
+        作業期間見積もり：
+        <%= @period_val.estimation %>
+        コメント：
+        <%= @period_val.estimation_comment %>
+      </div>
+      <div class="left-content">
+        作業工数見積もり：
+        <%= @manhour_val.estimation %>
+        コメント：
+        <%= @manhour_val.estimation_comment %>
+      </div>
+      <div class="left-content">
+        作業経験見積もり：
+        <%= @experience_val.estimation %>
+        コメント：
+        <%= @experience_val.estimation_comment %>
+      </div>
+    </div>
+
+    <div class="post">
+      <h4>今回の反省</h4>
+      <form action="/feedback_register" method="post">
+        <input type="hidden" name="task_id" value="<%= @task.id %>">
+        <div>
+          <div class="left-content">
+            作業規模:
+            <input type="radio" name="scale_feedback" value="1">思ってたより多かった
+            <input type="radio" name="scale_feedback" value="2">見積もりぴったり
+            <input type="radio" name="scale_feedback" value="3">結構すぐ終わった
+            <input name="scale_comment" placeholder="規模コメント">
+          </div>
+          <div class="left-content">
+            作業期間:
+            <input type="radio" name="period_feedback" value="1">めっちゃかかった
+            <input type="radio" name="period_feedback" value="2">見積もりぴったし
+            <input type="radio" name="period_feedback" value="3">ゆとりがあった
+            <input name="period_comment" placeholder="期間コメント">
+          </div>
+          <div class="left-content">
+            作業工数:
+            <input type="radio" name="manhour_feedback" value="1">過信してました
+            <input type="radio" name="manhour_feedback" value="2">思った通り
+            <input type="radio" name="manhour_feedback" value="3">思ってたより少なめ
+            <input name="manhour_comment" placeholder="工数コメント">
+          </div>
+          <div class="left-content">
+            前提知識・経験:
+            <input type="radio" name="experience_feedback" value="1">全然知らんかった
+            <input type="radio" name="experience_feedback" value="2">思った通り
+            <input type="radio" name="experience_feedback" value="3">全部知ってた
+            <input name="experience_comment" placeholder="経験コメント">
+          </div>
+        </div>
+        <div class="left-content">
+          <input type="text" name="hashtag" value="<%= @task.hashtag%>" placeholder="ハッシュタグ">
+        </div>
+        <div class="left-content">
+          <input type="submit" value="登録">
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

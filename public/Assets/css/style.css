@@ -1,0 +1,123 @@
+@font-face {
+  font-family: 'Apercu Bold';
+  src: url('../Assets/funts/Apercu-Bold.otf')
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  height: 70px;
+  width: 100%;
+  background-color: rgb(70, 69, 69);
+}
+
+nav a {
+  font-size: 18px;
+  color: white;
+  text-decoration: none;
+  margin-left: 15px;
+}
+
+.center-hrizontal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.center-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.right-hrizontal {
+  display: flex;
+  justify-content: flex-end;
+  align-items: right;
+  flex-wrap: wrap;
+}
+
+.left-hrizontal {
+  display: flex;
+  justify-content: flex-end;
+  align-items: left;
+  flex-wrap: wrap;
+}
+
+.first {
+  height: 320px;
+  width: 100%;
+  padding-top: 170px;
+  background-image: url("../img/hero01.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.first h1 {
+  font-size: 38px;
+  color: white;
+}
+
+h1 {
+  font-size: 30px;
+}
+
+.post {
+  margin: 20px;
+  padding: 10px;
+  width: 80vw;
+  border-radius: 15px;
+  word-break: break-all;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, .4);
+  position: relative;
+}
+
+.post-log {
+  margin: 20px;
+  padding: 10px;
+  width: 50vw;
+  border-radius: 15px;
+  word-break: break-all;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, .4);
+  position: relative;
+}
+
+.task-name {
+  font-size: 25px;
+}
+
+.due-date {
+  font-size: 15px;
+}
+
+.left-content {
+  margin-top: 20px;
+  margin-left: 25px;
+}
+
+.right-content {
+  margin-top: 20px;
+  margin-right: 25px;
+}
+
+.content {
+  margin-top: 20px;
+}
+
+.completed {
+  position: absolute;
+  left: 80%;
+  top: 30%;
+  bottom: 63%;
+}
+
+.delete-button {
+  position: absolute;
+  left: 73.85%;
+  right: 14.67%;
+  top: 61.34%;
+}

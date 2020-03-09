@@ -1,10 +1,12 @@
-<div>
+<section class="center-vertical">
   <% @user_tasks.each do |user_task| %>
-    <div>
-      <a href="/task_log/<%= user_task.id %>"><%= user_task.name %></a>
+    <div class="post-log">
+      <div class="left-content">
+        <a href="/task_log/<%= user_task.id %>"><%= user_task.name %></a>
+      </div>
     </div>
   <% end %>
   <div>
 
   </div>
-</div>
+</section>

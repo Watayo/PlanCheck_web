@@ -1,55 +1,69 @@
 <%# タスク登録のページ %>
 <%# コストごとの今までの見積もり成功割合 %>
-<div>
+<div class="center-vertical content">
+  <h1>Register Task</h1>
 </div>
 <%# -------------------ここからタスク情報入力---------------------- %>
 <%#  登録手順 タスク名 -> コスト見積もり -> コメント -> 期日 %>
-<div>
+<section class="center-vertical content">
+<div class="post">
   <form action="/task_register" method="post">
     <%# タスク名入力 %>
-    <div>
-      <input name="task_name" placeholder="タスク名を入力">
+    <div class="left-content">
+      <p>Task name :
+        <input name="task_name" placeholder="タスク名を入力">
+      </p>
     </div>
     <%# コストごとの見積もり入力 %>
-    <div>
+
+    <%# タスクに関してコメントを残す %>
+    <div class="left-content">
+      <p>Comment :
+        <input name="task_comment" placeholder="補足を書いておくと後々反省しやすくなります。">
+      </p>
+    </div>
+    <%# タスクの期日を入力 %>
+    <div class="left-content">
+      <p>Due Date :
+        <input type="date" name="due_date">
+      </p>
+    </div>
+
+    <div class="left-content">
       作業規模:
       <input type="radio" name="scale_estimation" value="1日規模">1日規模
       <input type="radio" name="scale_estimation" value="1週間規模">1週間規模
       <input type="radio" name="scale_estimation" value="1ヶ月規模">1ヶ月規模
       <input name="scale_comment" placeholder="規模コメント">
     </div>
-    <div>
+    <div class="left-content">
       作業期間:
       <input type="radio" name="period_estimation" value="なるはや">なるはや
       <input type="radio" name="period_estimation" value="ぴったりしっかり">ぴったりしっかり
       <input type="radio" name="period_estimation" value="ゆったり">ゆったり
       <input name="period_comment" placeholder="期間コメント">
     </div>
-    <div>
+    <div class="left-content">
       作業工数:
       <input type="radio" name="manhour_estimation" value="ちょうど良いか、少なそう">ちょうど良いか、少なそう
       <input type="radio" name="manhour_estimation" value="やや多いかな">やや多いかな
       <input type="radio" name="manhour_estimation" value="挑戦的な量">挑戦的な量
       <input name="manhour_comment" placeholder="工数コメント">
     </div>
-    <div>
+    <div class="left-content">
       前提知識・経験:
       <input type="radio" name="experience_estimation" value="経験あり！簡単">経験あり！簡単
       <input type="radio" name="experience_estimation" value="なきにしもあらず、自信ないかも">なきにしもあらず、自信ないかも
       <input type="radio" name="experience_estimation" value="未知への挑戦">未知への挑戦
       <input name="experience_comment" placeholder="経験コメント">
     </div>
-    <%# タスクに関してコメントを残す %>
-    <div>
-      <input name="task_comment" placeholder="補足を書いておくと後々反省しやすくなります。">
-    </div>
-    <%# タスクの期日を入力 %>
-    <div>
-      <input type="date" name="due_date">
-    </div>
-    <div>
+
+    <div class="left-content">
       <input type="text" name="hashtag" placeholder="ハッシュタグ">
     </div>
+    <div class="left-content">
       <input type="submit" value="登録">
+    </div>
   </form>
 </div>
+</section>

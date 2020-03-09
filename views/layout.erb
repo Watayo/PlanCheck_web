@@ -2,22 +2,23 @@
 <html lang="ja">
 <head>
 	<meta charset="UTF-8">
-	<title>タイトル</title>
+	<title>Plan&Check</title>
+  <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/Assets/css/style.css">
 </head>
 <body>
-<div>
-<nav>
+<nav class="center-hrizontal">
+  <a href="/">Plan&Check</a>
   <% if current_user.nil? %>
     <a href="/signup">Signup</a>
     <a href="/login">Login</a>
   <% else %>
-    <a href="/userpage">あなたのページ</a>
-    <a href="/task_register">タスク登録</a>
-    <a href="/user_statistics">今までの統計</a>
+    <a href="/userpage">Your Page</a>
+    <a href="/task_register">Task register</a>
+    <a href="/user_statistics">Statistics</a>
     <a href="/signout">Signout</a>
   <% end %>
 </nav>
-</div>
   <%= yield %>
 </body>
 </html>
