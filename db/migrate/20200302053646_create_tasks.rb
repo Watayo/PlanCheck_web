@@ -5,7 +5,7 @@ class CreateTasks < ActiveRecord::Migration[5.2]
       t.text :task_comment
       t.date :due_date
       t.boolean :completed
-      t.boolean :feedback_done
+      t.boolean :feedback_done, default: false
       t.integer :final_eval
       t.string :hashtag
       t.references :user

@@ -1,8 +1,7 @@
 <div>
   <% @user_tasks.each do |user_task| %>
     <div>
-      <h3>タスク名：<%= user_task.name %></h3>
-      <a href="/task_log/<%= user_task.id %>"></a>
+      <a href="/task_log/<%= user_task.id %>"><%= user_task.name %></a>
     </div>
   <% end %>
   <div>

@@ -96,7 +96,7 @@ end
 get '/userpage' do
   # current_userの統計情報が乗る
   # タスク登録とコスト登録のボタン
-  @user_tasks = current_user.where(feedback_done: false)
+  @user_tasks = current_user.tasks.where(feedback_done: false)
   erb :userpage
 end
 
@@ -172,6 +172,7 @@ end
 
 post '/feedback_register' do
   @task = Task.find(params[:task_id])
+
   scale = TaskScale.find_by(task_id: @task.id)
   period = TaskPeriod.find_by(task_id: @task.id)
   manhour = TaskManhour.find_by(task_id: @task.id)
@@ -191,10 +192,11 @@ post '/feedback_register' do
   )
   experience.feedbacks.create(
     fact: params[:experience_feedback],
-    estimation_comment: params[:experience_comment]
+    feedback_comment: params[:experience_comment]
   )
 
   @task.feedback_done = true
+  @task.save
 
   redirect '/userpage'
 end
@@ -207,7 +209,7 @@ get '/user_statistics' do
 end
 
 get '/task_log/:id' do
-  @task = Task.find(prams[:id])
+  @task = Task.find(params[:id])
 
   scale = TaskScale.find_by(task_id: @task.id)
   period = TaskPeriod.find_by(task_id: @task.id)
@@ -219,10 +221,10 @@ get '/task_log/:id' do
   @manhour_val = Estimation.find_by(task_manhour_id: manhour.id)
   @experience_val = Estimation.find_by(task_experience_id: experience.id)
 
-  @scale_fb = FeedBack.find_by(task_scale_id: scale.id)
-  @period_fb = FeedBack.find_by(task_period_id: scale.id)
-  @manhour_fb = FeedBack.find_by(task_manhour_id: scale.id)
-  @experience_fb = FeedBack.find_by(task_experience_id: scale.id)
+  @scale_fb = Feedback.find_by(task_scale_id: scale.id)
+  @period_fb = Feedback.find_by(task_period_id: scale.id)
+  @manhour_fb = Feedback.find_by(task_manhour_id: scale.id)
+  @experience_fb = Feedback.find_by(task_experience_id: scale.id)
 
   erb :task_log
 end

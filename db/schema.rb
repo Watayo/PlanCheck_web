@@ -79,8 +79,8 @@ ActiveRecord::Schema.define(version: 2020_03_08_153908) do
     t.text "task_comment"
     t.date "due_date"
     t.boolean "completed"
-    t.boolean "feedback_done"
-    t.integer "final_evaluation"
+    t.boolean "feedback_done", default: false
+    t.integer "final_eval"
     t.string "hashtag"
     t.integer "user_id"
     t.datetime "created_at", null: false

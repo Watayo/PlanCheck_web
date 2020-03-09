@@ -1,11 +1,6 @@
 <div>
-  <% @user_tasks.each do |user_task| %>
-    <div>
-      <h3>タスク名：<%= user_task.name %></h3>
-      <a href="/task_log/<%= user_task.id %>"></a>
-    </div>
-  <% end %>
   <div>
+    <h3>タスク名：<%= @task.name %></h3>
 
   </div>
 </div>
