@@ -13,7 +13,7 @@
 ActiveRecord::Schema.define(version: 2020_03_08_153908) do
 
   create_table "estimations", force: :cascade do |t|
-    t.integer "estimation"
+    t.text "estimation"
     t.text "estimation_comment"
     t.integer "task_scale_id"
     t.integer "task_period_id"
@@ -79,8 +79,9 @@ ActiveRecord::Schema.define(version: 2020_03_08_153908) do
     t.text "task_comment"
     t.date "due_date"
     t.boolean "completed"
+    t.boolean "feedback_done"
+    t.integer "final_evaluation"
     t.string "hashtag"
-    t.integer "relative_evaluation"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

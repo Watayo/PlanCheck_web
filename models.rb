@@ -11,13 +11,13 @@ end
 
 class Task < ActiveRecord::Base
   belongs_to :user
-  has_one :task_scale
-  has_one :task_period
-  has_one :task_manhour
-  has_one :task_experience
+  has_one :task_scale, dependent: :destroy
+  has_one :task_period, dependent: :destroy
+  has_one :task_manhour, dependent: :destroy
+  has_one :task_experience, dependent: :destroy
 
-  has_many :hashtags
-  has_many :tag_types, through: :hashtags, source: :tag
+  has_many :hashtags, dependent: :destroy
+  has_many :tag_types, through: :hashtags, source: :tag, dependent: :destroy
 # DBへpostがcreateされた直後に実行
   after_create do
     # controller側でcreateしたtweetを取得
@@ -31,50 +31,53 @@ class Task < ActiveRecord::Base
     end
   end
 
-  def parameter_register()
-    TaskScale.create(task_id: self.id)
-    TaskPeriod.create(task_id: self.id)
-    TaskManhour.create(task_id: self.id)
-    TaskExperience.create(task_id: self.id)
-  end
 end
 
 class Estimation < ActiveRecord::Base
   belongs_to :task_scale
-  belongs_to :taak_period
+  belongs_to :task_period
   belongs_to :task_manhour
   belongs_to :task_experience
+
+
 end
 
 class Feedback < ActiveRecord::Base
   belongs_to :task_scale
-  belongs_to :taak_period
+  belongs_to :task_period
   belongs_to :task_manhour
   belongs_to :task_experience
 end
 
 class TaskScale < ActiveRecord::Base
   belongs_to :task
-  has_many :estimation
-  has_many :feedback
+  has_many :estimations, dependent: :destroy
+  has_many :feedbacks, dependent: :destroy
+
+
 end
 
 class TaskPeriod < ActiveRecord::Base
   belongs_to :task
-  has_many :estimation
-  has_many :feedback
+  has_many :estimations, dependent: :destroy
+  has_many :feedbacks, dependent: :destroy
+
 end
 
 class TaskManhour < ActiveRecord::Base
   belongs_to :task
-  has_many :estimation
-  has_many :feedback
+  has_many :estimations, dependent: :destroy
+  has_many :feedbacks, dependent: :destroy
+
+
 end
 
 class TaskExperience < ActiveRecord::Base
   belongs_to :task
-  has_many :estimation
-  has_many :feedback
+  has_many :estimations, dependent: :destroy
+  has_many :feedbacks, dependent: :destroy
+
+
 end
 
 class Tag < ActiveRecord::Base
