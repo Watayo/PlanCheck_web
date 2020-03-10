@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 2020_03_08_153908) do
   end
 
   create_table "feedbacks", force: :cascade do |t|
-    t.integer "fact"
+    t.integer "fact", default: 0
     t.text "feedback_comment"
     t.integer "task_scale_id"
     t.integer "task_period_id"

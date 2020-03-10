@@ -1,7 +1,7 @@
 <%# タスク登録のページ %>
 <%# コストごとの今までの見積もり成功割合 %>
 <div class="center-vertical content">
-  <h1>Register Task</h1>
+  <h1>Add Task</h1>
 </div>
 <%# -------------------ここからタスク情報入力---------------------- %>
 <%#  登録手順 タスク名 -> コスト見積もり -> コメント -> 期日 %>
@@ -9,60 +9,129 @@
 <div class="post">
   <form action="/task_register" method="post">
     <%# タスク名入力 %>
-    <div class="left-content">
-      <p>Task name :
-        <input name="task_name" placeholder="タスク名を入力">
-      </p>
+    <div class="center-vertical">
+      <h3>タスク名</h3>
+        <input name="task_name" placeholder="タスク名を入力" style="font-size:30px; width:75%">
     </div>
     <%# コストごとの見積もり入力 %>
 
     <%# タスクに関してコメントを残す %>
-    <div class="left-content">
-      <p>Comment :
-        <input name="task_comment" placeholder="補足を書いておくと後々反省しやすくなります。">
-      </p>
+    <div class="center-vertical">
+      <h3>コメント</h3>
+        <textarea name="task_comment" rows="4" cols="60" placeholder="概要を残しましょう" style="font-size:25px; width:75%"></textarea>
     </div>
     <%# タスクの期日を入力 %>
-    <div class="left-content">
-      <p>Due Date :
-        <input type="date" name="due_date">
-      </p>
+    <div class="center-vertical">
+      <h3>提出期日</h3>
+        <input type="date" name="due_date" style="font-size:25px;">
     </div>
 
-    <div class="left-content">
-      作業規模:
-      <input type="radio" name="scale_estimation" value="1日規模">1日規模
-      <input type="radio" name="scale_estimation" value="1週間規模">1週間規模
-      <input type="radio" name="scale_estimation" value="1ヶ月規模">1ヶ月規模
-      <input name="scale_comment" placeholder="規模コメント">
-    </div>
-    <div class="left-content">
-      作業期間:
-      <input type="radio" name="period_estimation" value="なるはや">なるはや
-      <input type="radio" name="period_estimation" value="ぴったりしっかり">ぴったりしっかり
-      <input type="radio" name="period_estimation" value="ゆったり">ゆったり
-      <input name="period_comment" placeholder="期間コメント">
-    </div>
-    <div class="left-content">
-      作業工数:
-      <input type="radio" name="manhour_estimation" value="ちょうど良いか、少なそう">ちょうど良いか、少なそう
-      <input type="radio" name="manhour_estimation" value="やや多いかな">やや多いかな
-      <input type="radio" name="manhour_estimation" value="挑戦的な量">挑戦的な量
-      <input name="manhour_comment" placeholder="工数コメント">
-    </div>
-    <div class="left-content">
-      前提知識・経験:
-      <input type="radio" name="experience_estimation" value="経験あり！簡単">経験あり！簡単
-      <input type="radio" name="experience_estimation" value="なきにしもあらず、自信ないかも">なきにしもあらず、自信ないかも
-      <input type="radio" name="experience_estimation" value="未知への挑戦">未知への挑戦
-      <input name="experience_comment" placeholder="経験コメント">
+    <div class="center-vertical content">
+      <h3>作業規模</h3>
+      <div class="center-hrizontal grid">
+        <div class="input-content">
+          <input id="day" type="radio" name="scale_estimation" value="1日くらい">
+          <label for="day">
+            <img src="./Assets/img/1日くらい.png" alt="day" style="width:110px; height:110px;" >
+          </label><br>1日くらい
+        </div>
+        <div class="input-content">
+          <input id="week" type="radio" name="scale_estimation" value="1週間くらい">
+          <label for="week">
+            <img src="./Assets/img/1週間くらい.png" alt="week" style="width:110px; height:110px;" >
+          </label><br>1週間くらい
+        </div>
+        <div class="input-content">
+        <input id="month" type="radio" name="scale_estimation" value="1ヶ月くらい">
+        <label for="month">
+          <img src="./Assets/img/1ヶ月くらい.png" alt="month" style="width:110px; height:110px;" >
+        </label><br>1ヶ月くらい
+        </div>
+      </div>
+      <input name="scale_comment" placeholder="規模コメント" style="font-size:30px; width:75%">
     </div>
 
-    <div class="left-content">
-      <input type="text" name="hashtag" placeholder="ハッシュタグ">
+    <div class="center-vertical content">
+      <h3>作業期間</h3>
+      <div class="center-hrizontal grid">
+        <div class="input-content">
+          <input id="fast" type="radio" name="period_estimation" value="なるはや">
+          <label for="fast">
+            <img src="./Assets/img/なるはや.png" alt="fast" style="width:110px; height:110px;" >
+          </label><br>なるはや
+        </div>
+        <div class="input-content">
+          <input id="just" type="radio" name="period_estimation" value="ぴったり">
+          <label for="just">
+            <img src="./Assets/img/ぴったり.png" alt="just" style="width:110px; height:110px;" >
+          </label><br>ぴったり
+        </div>
+        <div class="input-content">
+          <input id="manytime" type="radio" name="period_estimation" value="ゆったり">
+          <label for="manytime">
+            <img src="./Assets/img/ゆったり.png" alt="havetime" style="width:110px; height:110px;" >
+          </label><br>ゆったり
+        </div>
+      </div>
+      <input name="period_comment" placeholder="期間コメント" style="font-size:30px; width:75%">
     </div>
-    <div class="left-content">
-      <input type="submit" value="登録">
+
+    <div class="center-vertical content">
+      <h3>作業工数</h3>
+      <div class="center-hrizontal grid">
+        <div class="input-content">
+          <input id="less" type="radio" name="manhour_estimation" value="少なめ感">
+          <label for="less">
+            <img src="./Assets/img/少なめ感.png" alt="less" style="width:110px; height:110px;" >
+          </label><br>少なめ感
+        </div>
+        <div class="input-content">
+          <input id="soso" type="radio" name="manhour_estimation" value="やや多め">
+          <label for="soso">
+            <img src="./Assets/img/やや多め.png" alt="soso" style="width:110px; height:110px;" >
+          </label><br>やや多め
+        </div>
+        <div class="input-content">
+          <input id="many" type="radio" name="manhour_estimation" value="絶対多い">
+          <label for="many">
+            <img src="./Assets/img/絶対多い.png" alt="many" style="width:110px; height:110px;" >
+          </label><br>絶対多い
+        </div>
+      </div>
+      <input name="manhour_comment" placeholder="工数コメント" style="font-size:30px; width:75%">
+    </div>
+
+    <div class="center-vertical content">
+      <h3>前提知識</h3>
+      <div class="center-hrizontal grid">
+        <div class="input-content">
+          <input id="used-to"type="radio" name="experience_estimation" value="かなり慣れてる">
+          <label for="used-to">
+            <img src="./Assets/img/かなり慣れてる.png" alt="used-to" style="width:110px; height:110px;" >
+          </label><br>かなり慣れてる
+        </div>
+        <div class="input-content">
+          <input id="nothing"type="radio" name="experience_estimation" value="あるけど、自信がない">
+          <label for="nothing">
+            <img src="./Assets/img/あるけど、自信がない.png" alt="nothing" style="width:110px; height:110px;" >
+          </label><br>あるけど、自信がない
+        </div>
+        <div class="input-content">
+          <input id="monky" type="radio" name="experience_estimation" value="全く知らん">
+          <label for="monky">
+            <img src="./Assets/img/全く知らん.png" alt="monky" style="width:110px; height:110px;" >
+          </label><br>全く知らん
+        </div>
+      </div>
+      <input name="experience_comment" placeholder="経験コメント" style="font-size:30px; width:75%">
+    </div>
+
+    <div class="center-vertical content">
+      <h3>ハッシュタグ機能</h3>
+      <input type="text" name="hashtag" placeholder="ハッシュタグ" style="font-size:30px; width:75%">
+    </div>
+    <div class="center-vertical content">
+      <input class="button" type="submit" value="登録"　size="40" %>
     </div>
   </form>
 </div>

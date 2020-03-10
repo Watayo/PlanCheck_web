@@ -1,10 +1,7 @@
 
 <section class="center-vertical">
   <div class="post">
-    Var Chart
-    <% @task_period_sum.each do |sum| %>
-      <%= sum %>
-    <% end %>
+    <h3>棒グラフ</h3>
     <div id="chart"></div>
       <script>
         var scale = <%= @task_scale_sum %>
@@ -16,9 +13,9 @@
           bindto: '#chart',
           data: {
             columns: [
-              ['Bat', scale[0], period[0], manhour[0], experience[0]],
-              ['Exactly', scale[1], period[1], manhour[1], experience[1]],
-              ['Overestimate', scale[2], period[2], manhour[2], experience[2]]
+              ['甘い見積もり', scale[0], period[0], manhour[0], experience[0]],
+              ['見積もり通り', scale[1], period[1], manhour[1], experience[1]],
+              ['高過ぎ見積もり', scale[2], period[2], manhour[2], experience[2]]
             ],
             type: 'bar'
           },
@@ -33,17 +30,15 @@
               tick: {
                 format: function(d){ // x軸の名称を数値から文字列に変換
                     switch(d){
-                    case 0: return("Scale");
-                    case 1: return("Period");
-                    case 2: return("Manhour");
-                    case 3: return("Experience");
+                    case 0: return("作業規模");
+                    case 1: return("作業期間");
+                    case 2: return("作業工数");
+                    case 3: return("前提経験");
                     default: return(d);
                     }
                 }
               }
-            }
-          },
-          axis: {
+            },
             y: {
               show: false
             }

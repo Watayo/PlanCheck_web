@@ -7,80 +7,156 @@
 </div>
 
 <section class="center-vertical content">
-  <div>
-    <div class="left-content">
-      <h3><%= @task.name %>のFEEDBACK</h3>
-    </div>
-    <%# 登録した見積もり予想を一覧を表示 %>
+  <div class="left-content">
+    <h2><%= @task.name %>のフィードバック</h2>
+  </div>
+  <%# 登録した見積もり予想を一覧を表示 %>
+  <div class="center-vertical">
     <div class="post">
-      <h4>あなたの見積もり</h4>
-      <div class="left-content">
-        作業規模見積もり：
-        <%= @scale_val.estimation %>
-        コメント：
-        <%= @scale_val.estimation_comment %>
+      <div class="center-vertical">
+        <h2>過去の見積もり</h2>
       </div>
-      <div class="left-content">
-        作業期間見積もり：
-        <%= @period_val.estimation %>
-        コメント：
-        <%= @period_val.estimation_comment %>
+      <div class="center-vertical content">
+        <h3>作業規模</h3>
+        <div class="center-vertical content">
+          <img src="/Assets/img/<%= @scale_val.estimation %>.png" alt="scale_img" style="width:110px; height:110px;">
+          <br><%= @scale_val.estimation %>
+        </div>
       </div>
-      <div class="left-content">
-        作業工数見積もり：
-        <%= @manhour_val.estimation %>
-        コメント：
-        <%= @manhour_val.estimation_comment %>
+      <div class="center-vertical content">
+        <h3>作業期間</h3>
+        <div class="center-vertical content">
+          <img src="/Assets/img/<%= @period_val.estimation %>.png" alt="scale_img" style="width:110px; height:110px;">
+          <br><%= @period_val.estimation %>
+        </div>
       </div>
-      <div class="left-content">
-        作業経験見積もり：
-        <%= @experience_val.estimation %>
-        コメント：
-        <%= @experience_val.estimation_comment %>
+      <div class="center-vertical content">
+        <h3>作業工数</h3>
+        <div class="center-vertical content">
+          <img src="/Assets/img/<%= @manhour_val.estimation %>.png" alt="scale_img" style="width:110px; height:110px;">
+          <br><%= @manhour_val.estimation %>
+        </div>
+      </div>
+      <div class="center-vertical content">
+        <h3>前提知識</h3>
+        <div class="center-vertical content">
+          <img src="/Assets/img/<%= @experience_val.estimation %>.png" alt="scale_img" style="width:110px; height:110px;">
+          <br><%= @experience_val.estimation %>
+        </div>
       </div>
     </div>
+  </div>
+  <div class="center-vertical">
+    <div class="post">
+      <div class="center-vertical">
+        <h2>今回の反省</h2>
+      </div>
 
-    <div class="post">
-      <h4>今回の反省</h4>
       <form action="/feedback_register" method="post">
         <input type="hidden" name="task_id" value="<%= @task.id %>">
-        <div>
-          <div class="left-content">
-            作業規模:
-            <input type="radio" name="scale_feedback" value="1">思ってたより多かった
-            <input type="radio" name="scale_feedback" value="2">見積もりぴったり
-            <input type="radio" name="scale_feedback" value="3">結構すぐ終わった
-            <input name="scale_comment" placeholder="規模コメント">
+        <div class="center-vertical content">
+          <h3>作業規模</h3>
+          <div class="center-hrizontal grid">
+            <div class="input-content">
+              <input id="bad1" type="radio" name="scale_feedback" value="1">
+              <label for="bad1">
+                <img src="/Assets/img/悲しい.png" alt="bad1" style="width:110px; height:110px;">
+              </label><br>めっちゃかかった
+            </div>
+            <div class="input-content">
+              <input id="exa1"type="radio" name="scale_feedback" value="2">
+              <label for="exa1">
+                <img src="/Assets/img/うれしい.png" alt="exa1" style="width:110px; height:110px;" >
+              </label><br>見積もりぴったり
+            </div>
+            <div class="input-content">
+              <input id="rob1"type="radio" name="scale_feedback" value="3">
+              <label for="rob1">
+                <img src="/Assets/img/ロボット.png" alt="rob1" style="width:110px; height:110px;" >
+              </label><br>結構すぐ終わった
+            </div>
           </div>
-          <div class="left-content">
-            作業期間:
-            <input type="radio" name="period_feedback" value="1">めっちゃかかった
-            <input type="radio" name="period_feedback" value="2">見積もりぴったし
-            <input type="radio" name="period_feedback" value="3">ゆとりがあった
-            <input name="period_comment" placeholder="期間コメント">
-          </div>
-          <div class="left-content">
-            作業工数:
-            <input type="radio" name="manhour_feedback" value="1">過信してました
-            <input type="radio" name="manhour_feedback" value="2">思った通り
-            <input type="radio" name="manhour_feedback" value="3">思ってたより少なめ
-            <input name="manhour_comment" placeholder="工数コメント">
-          </div>
-          <div class="left-content">
-            前提知識・経験:
-            <input type="radio" name="experience_feedback" value="1">全然知らんかった
-            <input type="radio" name="experience_feedback" value="2">思った通り
-            <input type="radio" name="experience_feedback" value="3">全部知ってた
-            <input name="experience_comment" placeholder="経験コメント">
-          </div>
+          <input name="scale_comment" placeholder="規模コメント" style="font-size:30px; width:75%">
         </div>
-        <div class="left-content">
-          <input type="text" name="hashtag" value="<%= @task.hashtag%>" placeholder="ハッシュタグ">
+        <div class="center-vertical content">
+          <h3>作業期間</h3>
+          <div class="center-hrizontal grid">
+            <div class="input-content">
+              <input id="bad2" type="radio" name="period_feedback" value="1">
+              <label for="bad2">
+                <img src="/Assets/img/悲しい.png" alt="bad2" style="width:110px; height:110px;" >
+              </label><br>めっちゃかかった
+            </div>
+            <div class="input-content">
+              <input id="exa2" type="radio" name="period_feedback" value="2">
+              <label for="exa2">
+                <img src="/Assets/img/うれしい.png" alt="exa2" style="width:110px; height:110px;" >
+              </label><br>見積もりぴったし
+            </div>
+            <div class="input-content">
+              <input id="rob2" type="radio" name="period_feedback" value="3">
+              <label for="rob2">
+                <img src="/Assets/img/ロボット.png" alt="rob2" style="width:110px; height:110px;" >
+              </label><br>ゆとりがあった
+            </div>
+          </div>
+          <input name="period_comment" placeholder="期間コメント" style="font-size:30px; width:75%">
         </div>
-        <div class="left-content">
-          <input type="submit" value="登録">
+        <div class="center-vertical content">
+          <h3>作業工数</h3>
+          <div class="center-hrizontal grid">
+            <div class="input-content">
+              <input id="bad3" type="radio" name="manhour_feedback" value="1">
+              <label for="bad3">
+                <img src="/Assets/img/悲しい.png" alt="bad3" style="width:110px; height:110px;" >
+              </label><br>過信してました
+            </div>
+            <div class="input-content">
+              <input id="exa3" type="radio" name="manhour_feedback" value="2">
+              <label for="exa3">
+                <img src="/Assets/img/うれしい.png" alt="exa3" style="width:110px; height:110px;" >
+              </label><br>思った通り
+            </div>
+            <div class="input-content">
+              <input id="rob3" type="radio" name="manhour_feedback" value="3">
+              <label for="rob3">
+                <img src="/Assets/img/ロボット.png" alt="rob3" style="width:110px; height:110px;" >
+              </label><br>思ってたより少なめ
+            </div>
+          </div>
+          <input name="manhour_comment" placeholder="工数コメント" style="font-size:30px; width:75%">
+        </div>
+        <div class="center-vertical content">
+          <h3>前提知識</h3>
+          <div class="center-hrizontal grid">
+            <div class="input-content">
+              <input id="bad4" type="radio" name="experience_feedback" value="1">
+              <label for="bad4">
+                <img src="/Assets/img/悲しい.png" alt="bad4" style="width:110px; height:110px;" >
+              </label><br>全然知らんかった
+            </div>
+            <div class="input-content">
+              <input id="exa4" type="radio" name="experience_feedback" value="2">
+              <label for="exa4">
+                <img src="/Assets/img/うれしい.png" alt="exa4" style="width:110px; height:110px;" >
+              </label><br>思った通り
+            </div>
+            <div class="input-content">
+              <input id="rob4" type="radio" name="experience_feedback" value="3">
+              <label for="rob4">
+                <img src="/Assets/img/ロボット.png" alt="rob4" style="width:110px; height:110px;" >
+              </label><br>全部知ってた
+            </div>
+          </div>
+          <input name="experience_comment" placeholder="経験コメント" style="font-size:30px; width:75%">
+        </div>
+        <div class="center-vertical content">
+          <h3>ハッシュタグ機能</h3>
+          <input type="text" name="hashtag" value="<%= @task.hashtag%>" placeholder="ハッシュタグ" style="font-size:30px; width:75%">
+        </div>
+        <div class="center-hrizontal content">
+          <input class="button" type="submit" value="登録">
         </div>
       </form>
-    </div>
   </div>
 </section>

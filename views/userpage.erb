@@ -11,9 +11,9 @@
     <% @user_tasks.each do |user_task| %>
     <div class="post">
       <div class="left-content">
-        <h2 class="task-name">Task Name : <%= user_task.name %></h2>
+        <h2 class="task-name">タスク名 : <%= user_task.name %></h2>
         <%#  期日 %>
-        <h3 class="due-date">Due Date : <%= user_task.due_date %></h3>
+        <h3 class="due-date">期日 : <%= user_task.due_date %></h3>
       </div>
       <% if !user_task.completed %>
         <div class="left-content">

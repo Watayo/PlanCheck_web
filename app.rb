@@ -195,9 +195,11 @@ get '/user_statistics' do
   # ユーザーが定義したコストごとに今までの統計を表示する。
   @user_tasks = current_user.tasks
 
-  @task_scale_sum = Array.new([0, 0, 0])
+  @task_scale_sum = Array.new([0, 0, 0, 0])
   @user_tasks.each { |task|
-    if task.task_scale.feedback.fact == 1
+    if task.task_experience.feedback.fact == 0
+      @task_scale_sum[3] += 1
+    elsif task.task_scale.feedback.fact == 1
       @task_scale_sum[0] += 1
     elsif task.task_scale.feedback.fact == 2
       @task_scale_sum[1] += 1
@@ -206,9 +208,11 @@ get '/user_statistics' do
     end
   }
 
-  @task_period_sum = Array.new([0, 0, 0])
+  @task_period_sum = Array.new([0, 0, 0, 0])
   @user_tasks.each { |task|
-    if task.task_period.feedback.fact == 1
+    if task.task_experience.feedback.fact == 0
+      @task_period_sum[3] += 1
+    elsif task.task_period.feedback.fact == 1
       @task_period_sum[0] += 1
     elsif task.task_period.feedback.fact == 2
       @task_period_sum[1] += 1
@@ -217,9 +221,11 @@ get '/user_statistics' do
     end
   }
 
-  @task_manhour_sum = Array.new([0, 0, 0])
+  @task_manhour_sum = Array.new([0, 0, 0, 0])
   @user_tasks.each { |task|
-    if task.task_manhour.feedback.fact == 1
+    if task.task_experience.feedback.fact == 0
+      @task_manhour_sum[3] += 1
+    elsif task.task_manhour.feedback.fact == 1
       @task_manhour_sum[0] += 1
     elsif task.task_manhour.feedback.fact == 2
       @task_manhour_sum[1] += 1
@@ -228,9 +234,11 @@ get '/user_statistics' do
     end
   }
 
-  @task_experience_sum = Array.new([0, 0, 0])
+  @task_experience_sum = Array.new([0, 0, 0, 0])
   @user_tasks.each { |task|
-    if task.task_experience.feedback.fact == 1
+    if task.task_experience.feedback.fact == 0
+      @task_experience_sum[3] += 1
+    elsif task.task_experience.feedback.fact == 1
       @task_experience_sum[0] += 1
     elsif task.task_experience.feedback.fact == 2
       @task_experience_sum[1] += 1
