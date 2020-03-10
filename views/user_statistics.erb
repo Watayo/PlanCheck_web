@@ -1,12 +1,77 @@
+
+<section class="center-vertical">
+  <div class="post">
+    Var Chart
+    <% @task_period_sum.each do |sum| %>
+      <%= sum %>
+    <% end %>
+    <div id="chart"></div>
+      <script>
+        var scale = <%= @task_scale_sum %>
+        var period = <%= @task_period_sum %>
+        var manhour = <%= @task_manhour_sum %>
+        var experience = <%= @task_experience_sum %>
+
+        var chart = c3.generate({
+          bindto: '#chart',
+          data: {
+            columns: [
+              ['Bat', scale[0], period[0], manhour[0], experience[0]],
+              ['Exactly', scale[1], period[1], manhour[1], experience[1]],
+              ['Overestimate', scale[2], period[2], manhour[2], experience[2]]
+            ],
+            type: 'bar'
+          },
+          bar: {
+            width: {
+              ratio: 0.6// this makes bar width 50% of length between ticks
+            }
+          },
+
+          axis: {
+            x: {
+              tick: {
+                format: function(d){ // x軸の名称を数値から文字列に変換
+                    switch(d){
+                    case 0: return("Scale");
+                    case 1: return("Period");
+                    case 2: return("Manhour");
+                    case 3: return("Experience");
+                    default: return(d);
+                    }
+                }
+              }
+            }
+          },
+          axis: {
+            y: {
+              show: false
+            }
+          },
+        });
+      </script>
+    </div>
+  </div>
+  <div class="post">
+    Coming soon...
+  </div>
+  <div class="post">
+    Coming soon...
+  </div>
+  <div class="post">
+    Coming soon...
+  </div>
+</section>
+
 <section class="center-vertical">
   <% @user_tasks.each do |user_task| %>
     <div class="post-log">
       <div class="left-content">
         <a href="/task_log/<%= user_task.id %>"><%= user_task.name %></a>
+        <form action="/task_delete/<%= user_task.id %>" method="post">
+          <input type="submit" value="Delete" style="width: 100px; height: 70px;">
+        </form>
       </div>
     </div>
   <% end %>
-  <div>
-
-  </div>
 </section>

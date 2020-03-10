@@ -20,7 +20,6 @@
           締め切りまで<%= (user_task.due_date - Date.today).to_i %>日です。
         </div>
       <% end %>
-      <div>
       <%# 完了したかまたは機嫌が過ぎたらFeedBackのページに %>
         <% if !user_task.completed %>
           <div class="completed">
@@ -43,6 +42,7 @@
             <input type="submit" value="Delete" style="width: 100px; height: 70px;">
           </form>
         </div>
+
       </div>
     <% end %>
 

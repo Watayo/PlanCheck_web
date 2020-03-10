@@ -38,8 +38,6 @@ class Estimation < ActiveRecord::Base
   belongs_to :task_period
   belongs_to :task_manhour
   belongs_to :task_experience
-
-
 end
 
 class Feedback < ActiveRecord::Base
@@ -51,33 +49,30 @@ end
 
 class TaskScale < ActiveRecord::Base
   belongs_to :task
-  has_many :estimations, dependent: :destroy
-  has_many :feedbacks, dependent: :destroy
-
+  has_one :estimation, dependent: :destroy
+  has_one :feedback, dependent: :destroy
 
 end
 
 class TaskPeriod < ActiveRecord::Base
   belongs_to :task
-  has_many :estimations, dependent: :destroy
-  has_many :feedbacks, dependent: :destroy
+  has_one :estimation, dependent: :destroy
+  has_one :feedback, dependent: :destroy
 
 end
 
 class TaskManhour < ActiveRecord::Base
   belongs_to :task
-  has_many :estimations, dependent: :destroy
-  has_many :feedbacks, dependent: :destroy
+  has_one :estimation, dependent: :destroy
+  has_one :feedback, dependent: :destroy
 
 
 end
 
 class TaskExperience < ActiveRecord::Base
   belongs_to :task
-  has_many :estimations, dependent: :destroy
-  has_many :feedbacks, dependent: :destroy
-
-
+  has_one :estimation, dependent: :destroy
+  has_one :feedback, dependent: :destroy
 end
 
 class Tag < ActiveRecord::Base

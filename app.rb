@@ -53,7 +53,7 @@ get '/line_callback' do
     "client_secret" => @line_secret,
     "code" => params[:code],
     "grant_type" => "authorization_code",
-    "redirect_uri" => heroku
+    "redirect_uri" => local
   )
 
   req_options = {
@@ -115,28 +115,26 @@ post '/task_register' do
     hashtag: params[:hashtag]
   )
 
-  scale = TaskScale.create(task_id: register_task.id)
-  period = TaskPeriod.create(task_id: register_task.id)
-  manhour = TaskManhour.create(task_id: register_task.id)
-  experience = TaskExperience.create(task_id: register_task.id)
-
-# パラメーターごとにタスクを登録したい
-  scale.estimations.create(
+  # パラメーターごとにタスクを登録したい
+  register_task.build_task_scale.build_estimation(
     estimation: params[:scale_estimation],
     estimation_comment: params[:scale_comment]
-  )
-  period.estimations.create(
+  ).save
+
+  register_task.build_task_period.build_estimation(
     estimation: params[:period_estimation],
     estimation_comment: params[:period_comment]
-  )
-  manhour.estimations.create(
+  ).save
+
+  register_task.build_task_manhour.build_estimation(
     estimation: params[:manhour_estimation],
     estimation_comment: params[:manhour_comment]
-  )
-  experience.estimations.create(
+  ).save
+
+  register_task.build_task_experience.build_estimation(
     estimation: params[:experience_estimation],
     estimation_comment: params[:experience_comment]
-  )
+  ).save
 
   redirect "/userpage"
 end
@@ -157,15 +155,10 @@ end
 get '/task_feedback/:id' do
   @task = Task.find(params[:id])
 
-  scale = TaskScale.find_by(task_id: @task)
-  period = TaskPeriod.find_by(task_id: @task)
-  manhour = TaskManhour.find_by(task_id: @task)
-  experience = TaskExperience.find_by(task_id: @task)
-
-  @scale_val = Estimation.find_by(task_scale_id: scale.id)
-  @period_val = Estimation.find_by(task_period_id: period.id)
-  @manhour_val = Estimation.find_by(task_manhour_id: manhour.id)
-  @experience_val = Estimation.find_by(task_experience_id: experience.id)
+  @scale_val = @task.task_scale.estimation
+  @period_val = @task.task_period.estimation
+  @manhour_val = @task.task_manhour.estimation
+  @experience_val = @task.task_experience.estimation
 
   erb :task_feedback
 end
@@ -173,30 +166,27 @@ end
 post '/feedback_register' do
   @task = Task.find(params[:task_id])
 
-  scale = TaskScale.find_by(task_id: @task.id)
-  period = TaskPeriod.find_by(task_id: @task.id)
-  manhour = TaskManhour.find_by(task_id: @task.id)
-  experience = TaskExperience.find_by(task_id: @task.id)
 
-  scale.feedbacks.create(
-    fact: params[:scale_feeback],
+  @task.build_task_scale.build_feedback(
+    fact: params[:scale_feedback].to_i,
     feedback_comment: params[:scale_comment]
-  )
-  period.feedbacks.create(
-    fact: params[:period_feedback],
+  ).save
+  @task.build_task_period.build_feedback(
+    fact: params[:period_feedback].to_i,
     feedback_comment: params[:period_comment]
-  )
-  manhour.feedbacks.create(
-    fact: params[:manhour_feedback],
+  ).save
+  @task.build_task_manhour.build_feedback(
+    fact: params[:manhour_feedback].to_i,
     feedback_comment: params[:manhour_comment]
-  )
-  experience.feedbacks.create(
-    fact: params[:experience_feedback],
+  ).save
+  @task.build_task_experience.build_feedback(
+    fact: params[:experience_feedback].to_i,
     feedback_comment: params[:experience_comment]
-  )
+  ).save
 
   @task.feedback_done = true
   @task.save
+
 
   redirect '/userpage'
 end
@@ -205,26 +195,67 @@ get '/user_statistics' do
   # ユーザーが定義したコストごとに今までの統計を表示する。
   @user_tasks = current_user.tasks
 
+  @task_scale_sum = Array.new([0, 0, 0])
+  @user_tasks.each { |task|
+    if task.task_scale.feedback.fact == 1
+      @task_scale_sum[0] += 1
+    elsif task.task_scale.feedback.fact == 2
+      @task_scale_sum[1] += 1
+    else
+      @task_scale_sum[2] += 1
+    end
+  }
+
+  @task_period_sum = Array.new([0, 0, 0])
+  @user_tasks.each { |task|
+    if task.task_period.feedback.fact == 1
+      @task_period_sum[0] += 1
+    elsif task.task_period.feedback.fact == 2
+      @task_period_sum[1] += 1
+    else
+      @task_period_sum[2] += 1
+    end
+  }
+
+  @task_manhour_sum = Array.new([0, 0, 0])
+  @user_tasks.each { |task|
+    if task.task_manhour.feedback.fact == 1
+      @task_manhour_sum[0] += 1
+    elsif task.task_manhour.feedback.fact == 2
+      @task_manhour_sum[1] += 1
+    else
+      @task_manhour_sum[2] += 1
+    end
+  }
+
+  @task_experience_sum = Array.new([0, 0, 0])
+  @user_tasks.each { |task|
+    if task.task_experience.feedback.fact == 1
+      @task_experience_sum[0] += 1
+    elsif task.task_experience.feedback.fact == 2
+      @task_experience_sum[1] += 1
+    else
+      task_experience_sum[2] += 1
+    end
+  }
+
   erb :user_statistics
 end
 
 get '/task_log/:id' do
   @task = Task.find(params[:id])
 
-  scale = TaskScale.find_by(task_id: @task.id)
-  period = TaskPeriod.find_by(task_id: @task.id)
-  manhour = TaskManhour.find_by(task_id: @task.id)
-  experience = TaskExperience.find_by(task_id: @task.id)
+  @scale_val = @task.task_scale.estimation
+  @period_val = @task.task_period.estimation
+  @manhour_val = @task.task_manhour.estimation
+  @experience_val = @task.task_experience.estimation
 
-  @scale_val = Estimation.find_by(task_scale_id: scale.id)
-  @period_val = Estimation.find_by(task_period_id: period.id)
-  @manhour_val = Estimation.find_by(task_manhour_id: manhour.id)
-  @experience_val = Estimation.find_by(task_experience_id: experience.id)
+  @scale_fb = @task.task_scale.feedback
+  @period_fb = @task.task_period.feedback
+  @manhour_fb = @task.task_manhour.feedback
+  @experience_fb = @task.task_experience.feedback
 
-  @scale_fb = Feedback.find_by(task_scale_id: scale.id)
-  @period_fb = Feedback.find_by(task_period_id: scale.id)
-  @manhour_fb = Feedback.find_by(task_manhour_id: scale.id)
-  @experience_fb = Feedback.find_by(task_experience_id: scale.id)
+
 
   erb :task_log
 end
