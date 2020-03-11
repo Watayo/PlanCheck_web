@@ -3,74 +3,45 @@
 </div>
 
 <section class="center-vertical content">
-  <div>
-    <div class="left-content">
-      <h3>Task Name : <%= @task.name %></h3>
-    </div>
-    <%# 登録した見積もり予想を一覧を表示 %>
+  <div class="left-content">
+    <h2><%= @task.name %>の情報</h2>
+  </div>
+
+  <%# 登録した見積もり予想を一覧を表示 %>
+  <div class="center-vertical">
     <div class="post">
-      <h4>あなたの見積もり</h4>
-      <div class="left-content">
-        作業規模見積もり：
-        <%= @scale_val.estimation %>
-        コメント：
-        <%= @scale_val.estimation_comment %>
+      <div class="center-vertical">
+        <h2>過去の見積もり</h2>
       </div>
-      <div class="left-content">
-        作業期間見積もり：
-        <%= @period_val.estimation %>
-        コメント：
-        <%= @period_val.estimation_comment %>
-      </div>
-      <div class="left-content">
-        作業工数見積もり：
-        <%= @manhour_val.estimation %>
-        コメント：
-        <%= @manhour_val.estimation_comment %>
-      </div>
-      <div class="left-content">
-        作業経験見積もり：
-        <%= @experience_val.estimation %>
-        コメント：
-        <%= @experience_val.estimation_comment %>
-      </div>
-    </div>
-
-    <div class="post">
-      <h4>反省</h4>
-      <div class="left-content">
-        作業規模反省：
-        <%= @scale_fb.fact %>
-        コメント：
-        <%= @scale_fb.feedback_comment %>
-      </div>
-      <div class="left-content">
-        作業期間反省：
-        <%= @period_fb.fact %>
-        コメント：
-        <%= @period_fb.feedback_comment %>
-      </div>
-      <div class="left-content">
-        作業工数反省：
-        <%= @manhour_fb.fact %>
-        コメント：
-        <%= @manhour_fb.feedback_comment %>
-      </div>
-      <div class="left-content">
-        作業経験反省：
-        <%= @experience_fb.fact %>
-        コメント：
-        <%= @experience_fb.feedback_comment %>
-      </div>
-
-
-        <div class="left-content">
-          <input type="text" name="hashtag" value="<%= @task.hashtag%>" placeholder="ハッシュタグ">
+      <div class="center-vertical content">
+        <h3>作業規模</h3>
+        <div class="center-hrizontal content">
+          <img src="/Assets/img/<%= @scale_val.estimation %>.png" alt="scale_img" style="width:110px; height:110px;">
+          <%= @scale_val.estimation_comment %>
+          <br><%= @scale_val.estimation %>
         </div>
-        <div class="left-content">
-          <input type="submit" value="登録">
+      </div>
+      <div class="center-vertical content">
+        <h3>作業期間</h3>
+        <div class="center-vertical content">
+          <img src="/Assets/img/<%= @period_val.estimation %>.png" alt="scale_img" style="width:110px; height:110px;">
+          <br><%= @period_val.estimation %>
         </div>
-      </form>
+      </div>
+      <div class="center-vertical content">
+        <h3>作業工数</h3>
+        <div class="center-vertical content">
+          <img src="/Assets/img/<%= @manhour_val.estimation %>.png" alt="scale_img" style="width:110px; height:110px;">
+          <br><%= @manhour_val.estimation %>
+        </div>
+      </div>
+      <div class="center-vertical content">
+        <h3>前提知識</h3>
+        <div class="center-vertical content">
+          <img src="/Assets/img/<%= @experience_val.estimation %>.png" alt="scale_img" style="width:110px; height:110px;">
+          <br><%= @experience_val.estimation %>
+        </div>
+      </div>
     </div>
   </div>
 </section>

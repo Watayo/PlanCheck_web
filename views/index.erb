@@ -1,5 +1,51 @@
-<main><%# このサイトの紹介アプリ %>
-  <section class="first center-vertical">
-    <h1>Plan&Check</h1>
-  </section>
-</main>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>Plan&Check</title>
+  <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/Assets/css/style.css">
+  <link rel="stylesheet" href="/Assets/css/c3.css">
+  <link href="https://fonts.googleapis.com/css?family=Abril+Fatface&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Acme&display=swap" rel="stylesheet">
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="/Assets/JS/c3.min.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="/Assets/JS/jquery.bgswitcher.js"></script>
+  <script>
+      jQuery(function($) {
+          $(".home").bgSwitcher({
+              images: ['/Assets/img/hero01.jpg', '/Assets/img/hero02.jpg']
+          });
+      });
+  </script>
+</head>
+<body>
+  <div class="home" class="big-bg">
+    <header class="page-header wrapper">
+      <h1 class="logo"><a href="/">Plan&Check</a><h1>
+      <nav>
+        <ul class="main-nav">
+        <% if current_user.nil? %>
+          <li><a href="/signup">Signup</a></li>
+          <li><a href="/login">Login</a></li>
+        <% else %>
+          <li><a href="/userpage"><img src="<%= current_user.img %>" alt="user_image" width="60" height="60"></a></li>
+          <li><a href="/task_register">Add Task</a></li>
+          <li><a href="/user_statistics">Statistics</a></li>
+          <li><a href="/signout">Signout</a></li>
+        <% end %>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="home-content wrapper">
+      <h2 class="page-title">
+        Learn from yesterday.
+      </h2>
+      <p> タスク管理方法を見直して, 自分の糧にしていきましょう.</p>
+    </div>
+  </div><%# --home-- %>
+</body>
+</html>

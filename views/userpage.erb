@@ -1,6 +1,6 @@
 <section class="left-vertical">
   <div class="left-content">
-    <h1>Today : <%= Date.today %></h1>
+    <h1><%= Date.today %></h1>
     <h2><%= current_user.name %>, Welcome to Plan&Check </h2>
   </div>
 </section>
@@ -10,41 +10,45 @@
     <h2>TaskLists</h2>
     <% @user_tasks.each do |user_task| %>
     <div class="post">
-      <div class="left-content">
-        <h2 class="task-name">タスク名 : <%= user_task.name %></h2>
+      <div>
+        <div class="content pad">
+          <h2 class="task-name">タスク名 : <%= user_task.name %></h2>
+          <% if !user_task.completed %>
+          <div class="completed">
+            <form action="/task_completed/<%= user_task.id %>" method="post">
+              <input class="button" type="submit" value="終了">
+            </form>
+          </div>
+          <% else %>
+          <div class="completed">
+            <form action="/task_completed/<%= user_task.id %>" method="post">
+              <input class="button" type="submit" value="訂正">
+            </form>
+          </div>
+          <% end %>
+        </div>
         <%#  期日 %>
-        <h3 class="due-date">期日 : <%= user_task.due_date %></h3>
+        <div class="content pad">
+          <h3 class="due-date">期日 : <%= user_task.due_date %></h3>
+          <div class="delete-button"><%# 削除や編集など %>
+            <form action="/task_delete/<%= user_task.id %>" method="post">
+              <input class="button" type="submit" value="消去">
+            </form>
+          </div>
+        </div>
       </div>
       <% if !user_task.completed %>
         <div class="left-content">
           締め切りまで<%= (user_task.due_date - Date.today).to_i %>日です。
         </div>
-      <% end %>
-      <%# 完了したかまたは機嫌が過ぎたらFeedBackのページに %>
-        <% if !user_task.completed %>
-          <div class="completed">
-            <form action="/task_completed/<%= user_task.id %>" method="post">
-              <input type="submit" value="DONE">
-            </form>
-          </div>
-        <% else %>
-          <div class="completed">
-            <form action="/task_completed/<%= user_task.id %>" method="post">
-              <input type="submit" value="DONEじゃない！！">
-            </form>
-          </div>
-          <div class="left-content">
-            <a href="/task_feedback/<%= user_task.id %>">FEEDBACKへ</a>
-          </div>
-        <% end %>
-        <div class="delete-button"><%# 削除や編集など %>
-          <form action="/task_delete/<%= user_task.id %>" method="post">
-            <input type="submit" value="Delete" style="width: 100px; height: 70px;">
-          </form>
+      <% else %>
+        <div class="left-content">
+          <a href="/task_feedback/<%= user_task.id %>">FEEDBACKへ</a>
         </div>
+      <% end %>
 
-      </div>
+      <%# 完了したかまたは機嫌が過ぎたらFeedBackのページに %>
+    </div>
     <% end %>
-
   </div>
 </section>

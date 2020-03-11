@@ -58,13 +58,17 @@
   </div>
 </section>
 
-<section class="center-vertical">
+<section class="center-hrizontal content">
   <% @user_tasks.each do |user_task| %>
     <div class="post-log">
-      <div class="left-content">
-        <a href="/task_log/<%= user_task.id %>"><%= user_task.name %></a>
-        <form action="/task_delete/<%= user_task.id %>" method="post">
-          <input type="submit" value="Delete" style="width: 100px; height: 70px;">
+      <div class="pad">
+        <h2 class="task-name">
+          <a href="/task_log/<%= user_task.id %>"><%= user_task.name %></a>
+        </h2>
+        <form action="/task_delete_log/<%= user_task.id %>" method="post">
+          <div class="delete-button">
+            <input class="button" type="submit" value="消去" s>
+          </div>
         </form>
       </div>
     </div>

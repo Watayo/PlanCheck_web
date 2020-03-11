@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Apercu Bold';
-  src: url('../Assets/funts/Apercu-Bold.otf')
+  src: url('../Assets/funts/Apercu-Bold.otf');
 }
 
 * {
@@ -8,21 +8,90 @@
   padding: 0;
 }
 
-nav {
-  height: 70px;
-  width: 100%;
-  background-color: rgb(70, 69, 69);
+html {
+  font-size: 100%;
+  background-color: rgba(254, 209, 121, 0.4);
 }
 
-nav a {
-  font-size: 20px;
-  color: white;
+a {
+  font-family: 'Acme', sans-serif;
   text-decoration: none;
-  margin-left: 15px;
+}
+
+.logo {
+  margin-top: 14px
+}
+
+.wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 4%;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.page-header a {
+  /* font-family: 'Abril Fatface', cursive; */
+  color: rgb(75, 75, 75);
+  font-family: 'Acme', sans-serif;
 }
 
 nav img {
   border-radius: 15px;
+}
+
+.main-nav {
+  display: flex;
+  font-size: 2.45rem;
+  text-transform: uppercase;
+  margin-top: 10px;
+  list-style: none;
+}
+
+.main-nav li {
+  margin-left: 36px;
+}
+
+.main-nav a {
+  color: rgb(75, 75, 75);
+}
+
+.home-content {
+  text-align: center;
+  margin-top: 10%;
+}
+
+.home-content p {
+  font-size: 1.125rem;
+  margin: 10px 0 42px;
+  color: rgb(75, 75, 75);
+}
+
+.page-title {
+  font-size: 5rem;
+  font-family: 'Abril Fatface', cursive;
+  color: rgb(75, 75, 75);
+}
+
+.big-bg {
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  filter: brightness(1.5);
+}
+
+.home {
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.home .page-title {
+  text-transform: none;
 }
 
 .center-hrizontal {
@@ -55,49 +124,53 @@ nav img {
   height: 320px;
   width: 100%;
   padding-top: 170px;
-  background-image: url("../img/hero01.jpg");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .first h1 {
+  font-family: 'Acme', sans-serif;
   font-size: 38px;
   color: white;
 }
 
 h1 {
+  font-family: 'Acme', sans-serif;
   font-size: 38px;
 }
 
 h2 {
+  font-family: 'Acme', sans-serif;
   font-size: 33px;
 }
 
 .post {
+  background-color: white;
   margin: 20px;
   padding: 10px;
   width: 80vw;
   border-radius: 15px;
   word-break: break-all;
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, .4);
-  position: relative;
 }
 
 .post-log {
-  margin: 20px;
+  background-color: white;
+  margin: 15px;
   padding: 10px;
-  width: 50vw;
+  width: 35vw;
   border-radius: 15px;
   word-break: break-all;
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, .4);
-  position: relative;
 }
 
 .task-name {
+  float: left;
   font-size: 25px;
 }
 
 .due-date {
+  float: left;
   font-size: 15px;
 }
 
@@ -115,18 +188,16 @@ h2 {
   margin-top: 20px;
 }
 
+.pad {
+  padding: 0 20px;
+}
+
 .completed {
-  position: absolute;
-  left: 80%;
-  top: 30%;
-  bottom: 63%;
+  text-align: right;
 }
 
 .delete-button {
-  position: absolute;
-  left: 73.85%;
-  right: 14.67%;
-  top: 61.34%;
+  text-align: right;
 }
 
 .post h2 {
@@ -167,12 +238,13 @@ h2 {
 }
 
 .button {
-  padding: 15px 40px;
-  font-size: 1.2em;
+  padding: 10px 20px;
+  font-size: 1.0em;
   /* 背景色を黒に指定 */
-  background-color: #000;
+  background-color: color: rgb(75, 75, 75);
   /* 文字色を白に指定 */
   color: #fff;
   /* submitボタンのを枠を非表示にする */
+  border-radius: 15px;
   border-style: none;
 }

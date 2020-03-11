@@ -30,7 +30,7 @@ get '/' do
   # このサイトの紹介のページにするつもり
   # 必要な情報
   # 様々なユーザーの統計情報、(カレンダー)
-  erb :index
+  erb :index, layout: nil
 end
 
 get '/signup' do
@@ -136,6 +136,11 @@ post '/task_register' do
     estimation_comment: params[:experience_comment]
   ).save
 
+  register_task.build_task_scale.build_feedback().save
+  register_task.build_task_period.build_feedback().save
+  register_task.build_task_manhour.build_feedback().save
+  register_task.build_task_experience.build_feedback().save
+
   redirect "/userpage"
 end
 
@@ -197,53 +202,53 @@ get '/user_statistics' do
 
   @task_scale_sum = Array.new([0, 0, 0, 0])
   @user_tasks.each { |task|
-    if task.task_experience.feedback.fact == 0
-      @task_scale_sum[3] += 1
-    elsif task.task_scale.feedback.fact == 1
+    if task.task_scale.feedback.fact == 1
       @task_scale_sum[0] += 1
     elsif task.task_scale.feedback.fact == 2
       @task_scale_sum[1] += 1
-    else
+    elsif task.task_scale.feedback.fact == 3
       @task_scale_sum[2] += 1
+    else
+      @task_scale_sum[3] += 1
     end
   }
 
   @task_period_sum = Array.new([0, 0, 0, 0])
   @user_tasks.each { |task|
-    if task.task_experience.feedback.fact == 0
-      @task_period_sum[3] += 1
-    elsif task.task_period.feedback.fact == 1
+    if task.task_period.feedback.fact == 1
       @task_period_sum[0] += 1
     elsif task.task_period.feedback.fact == 2
       @task_period_sum[1] += 1
-    else
+    elsif task.task_period.feedback.fact == 3
       @task_period_sum[2] += 1
+    else
+      @task_period_sum[3] += 1
     end
   }
 
   @task_manhour_sum = Array.new([0, 0, 0, 0])
   @user_tasks.each { |task|
-    if task.task_experience.feedback.fact == 0
-      @task_manhour_sum[3] += 1
-    elsif task.task_manhour.feedback.fact == 1
+    if task.task_manhour.feedback.fact == 1
       @task_manhour_sum[0] += 1
     elsif task.task_manhour.feedback.fact == 2
       @task_manhour_sum[1] += 1
-    else
+    elsif task.task_manhour.feedback.fact == 3
       @task_manhour_sum[2] += 1
+    else
+      @task_manhour_sum[3] += 1
     end
   }
 
   @task_experience_sum = Array.new([0, 0, 0, 0])
   @user_tasks.each { |task|
-    if task.task_experience.feedback.fact == 0
-      @task_experience_sum[3] += 1
-    elsif task.task_experience.feedback.fact == 1
+    if task.task_experience.feedback.fact == 1
       @task_experience_sum[0] += 1
     elsif task.task_experience.feedback.fact == 2
       @task_experience_sum[1] += 1
+    elsif task.task_manhour.feedback.fact == 3
+      @task_experience_sum[2] += 1
     else
-      task_experience_sum[2] += 1
+      @task_experience_sum[3] += 1
     end
   }
 
@@ -262,8 +267,6 @@ get '/task_log/:id' do
   @period_fb = @task.task_period.feedback
   @manhour_fb = @task.task_manhour.feedback
   @experience_fb = @task.task_experience.feedback
-
-
 
   erb :task_log
 end
