@@ -6,7 +6,18 @@ require 'oauth2'
 require 'jwt'
 require './models'
 
+require 'line/bot'
+
 enable :sessions
+
+
+def client
+  @client ||= Line::Bot::Client.new { |config|
+    config.channel_id = ENV["LINE_CHANNEL_ID"]
+    config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
+    config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
+  }
+end
 
 before do
   Dotenv.load
@@ -45,6 +56,7 @@ end
 get '/line_callback' do
   local = "http://localhost:32788/line_callback"
   heroku = "https://plancheck-webapp.com/line_callback"
+  ngrok = "https://4c4449cc.ngrok.io"
   uri = URI.parse("https://api.line.me/oauth2/v2.1/token")
   request = Net::HTTP::Post.new(uri)
   request.content_type = "application/x-www-form-urlencoded"
@@ -269,4 +281,65 @@ get '/task_log/:id' do
   @experience_fb = @task.task_experience.feedback
 
   erb :task_log
+end
+
+# --------------------LINE-----------------------
+
+post '/callback' do
+
+  # -----------------------------------------
+  body = request.body.read
+  # p "-------------------------"
+  # p body
+  # response_user = client.get_profile("<userId>")
+  # case response_user
+  # when Net::HTTPSuccess then
+  #   contact = JSON.parse(response_user.body)
+  #   p contact['displayName']
+  #   p contact['pictureUrl']
+  #   p contact['statusMessage']
+  # else
+  #   p "#{response_user.code} #{response_user.body}"
+  # end
+
+  # request_get = Net::HTTP::Get.new('https://api.line.me/v2/bot/profile/{userId}')
+
+
+  signature = request.env['HTTP_X_LINE_SIGNATURE']
+  unless client.validate_signature(body, signature)
+    error 400 do 'Bad Request' end
+  end
+
+  # p "-------------------------"
+  # p events
+  #  p user = events['source']['userId']
+  # destination = client.parse_destination_from(body)
+
+  events = client.parse_events_from(body)
+
+  events.each do |event|
+    case event
+    # case event. = 'user'
+    #   event.
+
+    # end
+    when Line::Bot::Event::Message
+      case event.type
+      when Line::Bot::Event::MessageType::Text
+        if event.message['text'] =~ /タスク登録/
+          message = {
+            type: 'text',
+            text: '成功じゃん！！！'
+          }
+        end
+        client.reply_message(event['replyToken'], message)
+      when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
+        response = client.get_message_content(event.message['id'])
+
+        tf = Tempfile.open("content")
+        tf.write(response.body)
+      end
+    end
+  end
+  "OK!"
 end

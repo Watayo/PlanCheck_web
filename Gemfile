@@ -33,3 +33,6 @@ end
 
 #line-oauth認証
 gem 'oauth2'
+
+gem 'line-bot-api'
+gem 'rest-client'
