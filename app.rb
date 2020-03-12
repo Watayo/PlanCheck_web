@@ -127,24 +127,78 @@ post '/task_register' do
     hashtag: params[:hashtag]
   )
 
+  scale = params[:scale_estimation]
+  period = params[:period_estimation]
+  manhour = params[:manhour_estimation]
+  exp = params[:experience_estimation]
+
+  if scale == 1
+    @scale_text = "1日くらい"
+    @scale_img = "day.png"
+  elsif scale == 2
+    @scale_text = "1週間くらい"
+    @scale_img = "week.png"
+  else
+    @scale_text = "1ヶ月くらい"
+    @scale_img = "month.png"
+  end
+
+  if period == 1
+    @period_text = "なるはや"
+    @period_img = "fast.png"
+  elsif period == 2
+    @period_text = "ぴったり"
+    @period_img = "just.png"
+  else
+    @period_text = "ゆったり"
+    @peirod_img = "havetime.png"
+  end
+
+  if manhour == 1
+    @manhour_text = "少なめ感"
+    @manhour_img = "less.png"
+  elsif manhour == 2
+    @manhour_text = "やや多め"
+    @manhour_img = "soso.png"
+  else
+    @manhour_text = "絶対多い"
+    @manhour_img = "many.png"
+  end
+
+  if exp == 1
+    @exp_text = "かなり慣れてる"
+    @exp_img = "used-to.png"
+  elsif exp == 2
+    @exp_text = "あるけど、自信がない"
+    @exp_img = "nothing.png"
+  else
+    @exp_text = "全く知らん"
+    @exp_img = "monky.png"
+  end
+
+
   # パラメーターごとにタスクを登録したい
   register_task.build_task_scale.build_estimation(
-    estimation: params[:scale_estimation],
+    text: @scale_text,
+    img: @scale_img,
     estimation_comment: params[:scale_comment]
   ).save
 
   register_task.build_task_period.build_estimation(
-    estimation: params[:period_estimation],
+    text: @period_text,
+    img: @period_img,
     estimation_comment: params[:period_comment]
   ).save
 
   register_task.build_task_manhour.build_estimation(
-    estimation: params[:manhour_estimation],
+    text: @manhour_text,
+    img: @manhour_img,
     estimation_comment: params[:manhour_comment]
   ).save
 
   register_task.build_task_experience.build_estimation(
-    estimation: params[:experience_estimation],
+    text: @exp_text,
+    img: @exp_img,
     estimation_comment: params[:experience_comment]
   ).save
 
@@ -176,6 +230,7 @@ get '/task_feedback/:id' do
   @period_val = @task.task_period.estimation
   @manhour_val = @task.task_manhour.estimation
   @experience_val = @task.task_experience.estimation
+
 
   erb :task_feedback
 end
