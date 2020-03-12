@@ -286,43 +286,16 @@ end
 # --------------------LINE-----------------------
 
 post '/callback' do
-
-  # -----------------------------------------
   body = request.body.read
-  # p "-------------------------"
-  # p body
-  # response_user = client.get_profile("<userId>")
-  # case response_user
-  # when Net::HTTPSuccess then
-  #   contact = JSON.parse(response_user.body)
-  #   p contact['displayName']
-  #   p contact['pictureUrl']
-  #   p contact['statusMessage']
-  # else
-  #   p "#{response_user.code} #{response_user.body}"
-  # end
-
-  # request_get = Net::HTTP::Get.new('https://api.line.me/v2/bot/profile/{userId}')
-
 
   signature = request.env['HTTP_X_LINE_SIGNATURE']
   unless client.validate_signature(body, signature)
     error 400 do 'Bad Request' end
   end
 
-  # p "-------------------------"
-  # p events
-  #  p user = events['source']['userId']
-  # destination = client.parse_destination_from(body)
-
   events = client.parse_events_from(body)
-
   events.each do |event|
     case event
-    # case event. = 'user'
-    #   event.
-
-    # end
     when Line::Bot::Event::Message
       case event.type
       when Line::Bot::Event::MessageType::Text
