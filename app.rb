@@ -127,59 +127,6 @@ post '/task_register' do
     hashtag: params[:hashtag]
   )
 
-  # scale_text = ""
-  # scale_img = ""
-  # if scale == 1
-  #   scale_text = "1日くらい"
-  #   scale_img = "day.png"
-  # elsif scale == 2
-  #   scale_text = "1週間くらい"
-  #   scale_img = "week.png"
-  # else
-  #   scale_text = "1ヶ月くらい"
-  #   scale_img = "month.png"
-  # end
-
-  # period_text = ""
-  # period_img = ""
-  # if period == 1
-  #   period_text = "なるはや"
-  #   period_img = "fast.png"
-  # elsif period == 2
-  #   period_text = "ぴったり"
-  #   period_img = "just.png"
-  # else
-  #   period_text = "ゆったり"
-  #   peirod_img = "havetime.png"
-  # end
-
-  # manhour_text = ""
-  # manhour_img = ""
-  # if manhour == 1
-  #   manhour_text = "少なめ感"
-  #   manhour_img = "less.png"
-  # elsif manhour == 2
-  #   manhour_text = "やや多め"
-  #   manhour_img = "soso.png"
-  # else
-  #   manhour_text = "絶対多い"
-  #   manhour_img = "many.png"
-  # end
-
-
-  # exp_text = ""
-  # exp_img = ""
-  # if exp == 1
-  #   exp_text = "かなり慣れてる"
-  #   exp_img = "used-to.png"
-  # elsif exp == 2
-  #   exp_text = "あるけど、自信がない"
-  #   exp_img = "nothing.png"
-  # else
-  #   exp_text = "全く知らん"
-  #   exp_img = "monky.png"
-  # end
-
   register_task.create_task_scale.create_estimation(
     your_estimation: params[:scale_estimation].to_i,
     estimation_comment: params[:period_comment]
@@ -232,19 +179,19 @@ post '/feedback_register' do
   @task = Task.find(params[:task_id])
 
 
-  @task.create_task_scale.create_feedback(
+  @task.task_scale.create_feedback(
     fact: params[:scale_feedback].to_i,
     feedback_comment: params[:scale_comment]
   )
-  @task.create_task_period.create_feedback(
+  @task.task_period.create_feedback(
     fact: params[:period_feedback].to_i,
     feedback_comment: params[:period_comment]
   )
-  @task.create_task_manhour.create_feedback(
+  @task.task_manhour.create_feedback(
     fact: params[:manhour_feedback].to_i,
     feedback_comment: params[:manhour_comment]
   )
-  @task.create_task_experience.create_feedback(
+  @task.task_experience.create_feedback(
     fact: params[:experience_feedback].to_i,
     feedback_comment: params[:experience_comment]
   )
@@ -323,11 +270,15 @@ get '/task_log/:id' do
   @manhour_val = @task.task_manhour.estimation
   @experience_val = @task.task_experience.estimation
 
+  p @scale_val
+
+
   @scale_fb = @task.task_scale.feedback
   @period_fb = @task.task_period.feedback
   @manhour_fb = @task.task_manhour.feedback
   @experience_fb = @task.task_experience.feedback
 
+  p @scale_fb
   erb :task_log
 end
 

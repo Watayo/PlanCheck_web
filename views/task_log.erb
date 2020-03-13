@@ -3,147 +3,153 @@
 </div>
 
 <section class="center-vertical content">
-  <div class="left-content">
-    <h2><%= @task.name %>の情報</h2>
-  </div>
 
-  <%# 登録した見積もり予想を一覧を表示 %>
-  <section class="center-vertical content">
-  <div class="left-content">
-    <h2><%= @task.name %>のフィードバック</h2>
-  </div>
   <%# 登録した見積もり予想を一覧を表示 %>
   <div class="center-vertical">
     <div class="post">
       <div class="center-vertical">
-        <h2>過去の見積もり</h2>
+        <h2>タスク名 : <%= @task.name %></h2>
       </div>
       <div class="center-vertical content">
         <h3>作業規模</h3>
-        <div class="center-vertical content">
-          <% if @scale_val.your_estimation == 1 %>
-            <img src="/Assets/img/day.png" alt="scale_img" style="width:110px; height:110px;">
-            <br>1日くらい
-          <% elsif @scale_val.your_estimation == 2 %>
-            <img src="/Assets/img/week.png" alt="scale_img" style="width:110px; height:110px;">
-            <br>1週間くらい
-          <% elsif @scale_val.your_estimation == 3 %>
-            <img src="/Assets/img/month.png" alt="scale_img" style="width:110px; height:110px;">
-            <br>1ヶ月くらい
-          <% else %>
-            <%# <img src="/Assets/img/" alt="scale_img" style="width:110px; height:110px;"> %>
-            <br>未回答！！
-          <% end %>
-          <% if @scale_fb.fact == 1 %>
-            <img src="/Assets/img/bad.png" alt="scale_img" style="width:110px; height:110px;">
-            <br>見積もり失敗
-          <% elsif @scale_fb.fact == 2 %>
-            <img src="/Assets/img/happy.png" alt="scale_img" style="width:110px; height:110px;">
-            <br>見積もり成功
-          <% elsif @scale_fb.fact == 3 %>
-            <img src="/Assets/img/robot.png" alt="scale_img" style="width:110px; height:110px;">
-            <br>高すぎた見積もり
-          <% else %>
-            <%# <img src="/Assets/img/" alt="scale_img" style="width:110px; height:110px;"> %>
-            <br>未回答！！
-          <% end %>
+
+        <div class="center-hrizontal content">
+          <div class="center-vertical viewlog">
+            <% if @scale_val.your_estimation == 1 %>
+              <img src="/Assets/img/day.png" alt="scale_img" style="width:110px; height:110px;">
+              <br>1日くらい
+            <% elsif @scale_val.your_estimation == 2 %>
+              <img src="/Assets/img/week.png" alt="scale_img" style="width:110px; height:110px;">
+              <br>1週間くらい
+            <% elsif @scale_val.your_estimation == 3 %>
+              <img src="/Assets/img/month.png" alt="scale_img" style="width:110px; height:110px;">
+              <br>1ヶ月くらい
+            <% else %>
+              <%# <img src="/Assets/img/" alt="scale_img" style="width:110px; height:110px;"> %>
+              <br>未回答！！
+            <% end %>
+
+          </div><%# 過去の見積もり %>
+          <div class="center-vertical viewlog">
+            <% if @scale_fb.fact == 1 %>
+              <img src="/Assets/img/bad.png" alt="scale_img" style="width:110px; height:110px;">
+              <br>見積もり失敗
+            <% elsif @scale_fb.fact == 2 %>
+              <img src="/Assets/img/happy.png" alt="scale_img" style="width:110px; height:110px;">
+              <br>見積もり成功
+            <% elsif @scale_fb.fact == 3 %>
+              <img src="/Assets/img/robot.png" alt="scale_img" style="width:110px; height:110px;">
+              <br>高すぎた見積もり
+            <% else %>
+              <%# <img src="/Assets/img/" alt="scale_img" style="width:110px; height:110px;"> %>
+              <br>未回答！！
+            <% end %>
+          </div>
         </div>
       </div>
       <div class="center-vertical content">
         <h3>作業期間</h3>
-        <div class="center-vertical content">
-          <% if @period_val.your_estimation == 1 %>
-            <img src="/Assets/img/fast.png" alt="period_img" style="width:110px; height:110px;">
-            <br>なるはや
-          <% elsif @period_val.your_estimation == 2 %>
-            <img src="/Assets/img/just.png" alt="period_img" style="width:110px; height:110px;">
-            <br>ぴったり
-          <% elsif @peirod_val.your_estimation == 3 %>
-            <img src="/Assets/img/havetime.png" alt="period_img" style="width:110px; height:110px;">
-            <br>ゆったり
-          <% else %>
-            <%# <img src="/Assets/img/" alt="scale_img" style="width:110px; height:110px;"> %>
-            <br>未回答！！
-          <% end %>
-
-          <% if @period_fb.fact == 1 %>
-            <img src="/Assets/img/bad.png" alt="period_img" style="width:110px; height:110px;">
-            <br>見積もり失敗
-          <% elsif @peirod_fb.fact == 2 %>
-            <img src="/Assets/img/happy.png" alt="period_img" style="width:110px; height:110px;">
-            <br>見積もり成功
-          <% elsif @period_fb.fact == 3 %>
-            <img src="/Assets/img/robot.png" alt="peirod_img" style="width:110px; height:110px;">
-            <br>高すぎた見積もり
-          <% else %>
-            <%# <img src="/Assets/img/" alt="scale_img" style="width:110px; height:110px;"> %>
-            <br>未回答！！
-          <% end %>
+        <div class="center-hrizontal content">
+          <div class="center-vertical viewlog">
+            <% if @period_val.your_estimation == 1 %>
+              <img src="/Assets/img/fast.png" alt="period_img" style="width:110px; height:110px;">
+              <br>なるはや
+            <% elsif @period_val.your_estimation == 2 %>
+              <img src="/Assets/img/just.png" alt="period_img" style="width:110px; height:110px;">
+              <br>ぴったり
+            <% elsif @peirod_val.your_estimation == 3 %>
+              <img src="/Assets/img/havetime.png" alt="period_img" style="width:110px; height:110px;">
+              <br>ゆったり
+            <% else %>
+              <%# <img src="/Assets/img/" alt="scale_img" style="width:110px; height:110px;"> %>
+              <br>未回答！！
+            <% end %>
+          </div>
+          <div class="center-vertical viewlog">
+            <% if @period_fb.fact == 1 %>
+              <img src="/Assets/img/bad.png" alt="period_img" style="width:110px; height:110px;">
+              <br>見積もり失敗
+            <% elsif @period_fb.fact == 2 %>
+              <img src="/Assets/img/happy.png" alt="period_img" style="width:110px; height:110px;">
+              <br>見積もり成功
+            <% elsif @period_fb.fact == 3 %>
+              <img src="/Assets/img/robot.png" alt="peirod_img" style="width:110px; height:110px;">
+              <br>高すぎた見積もり
+            <% else %>
+              <%# <img src="/Assets/img/" alt="scale_img" style="width:110px; height:110px;"> %>
+              <br>未回答！！
+            <% end %>
+          </div>
         </div>
       </div>
       <div class="center-vertical content">
         <h3>作業工数</h3>
-        <div class="center-vertical content">
-          <% if @manhour_val.your_estimation == 1 %>
-            <img src="/Assets/img/less.png" alt="manhour_img" style="width:110px; height:110px;">
-            <br>少なめ感
-          <% elsif @manhour_val.your_estimation == 2 %>
-            <img src="/Assets/img/soso.png" alt="manhour_img" style="width:110px; height:110px;">
-            <br>やや多い
-          <% elsif @manhour_val.your_estimation == 3 %>
-            <img src="/Assets/img/many.png" alt="manhour_img" style="width:110px; height:110px;">
-            <br>絶対多い
-          <% else %>
-            <%# <img src="/Assets/img/" alt="scale_img" style="width:110px; height:110px;"> %>
-            <br>未回答！！
-          <% end %>
-
-          <% if @manhour_fb.fact == 1 %>
-            <img src="/Assets/img/bad.png" alt="manhour_img" style="width:110px; height:110px;">
-            <br>見積もり失敗
-          <% elsif @manhour_fb.fact == 2 %>
-            <img src="/Assets/img/happy.png" alt="manhour_img" style="width:110px; height:110px;">
-            <br>見積もり成功
-          <% elsif @manhour_fb.fact == 3 %>
-            <img src="/Assets/img/robot.png" alt="manhour_img" style="width:110px; height:110px;">
-            <br>高すぎた見積もり
-          <% else %>
-            <%# <img src="/Assets/img/" alt="scale_img" style="width:110px; height:110px;"> %>
-            <br>未回答！！
-          <% end %>
+        <div class="center-hrizontal content">
+          <div class="center-vertical viewlog">
+            <% if @manhour_val.your_estimation == 1 %>
+              <img src="/Assets/img/less.png" alt="manhour_img" style="width:110px; height:110px;">
+              <br>少なめ感
+            <% elsif @manhour_val.your_estimation == 2 %>
+              <img src="/Assets/img/soso.png" alt="manhour_img" style="width:110px; height:110px;">
+              <br>やや多い
+            <% elsif @manhour_val.your_estimation == 3 %>
+              <img src="/Assets/img/many.png" alt="manhour_img" style="width:110px; height:110px;">
+              <br>絶対多い
+            <% else %>
+              <%# <img src="/Assets/img/" alt="scale_img" style="width:110px; height:110px;"> %>
+              <br>未回答！！
+            <% end %>
+          </div>
+          <div class="center-vertical viewlog">
+            <% if @manhour_fb.fact == 1 %>
+              <img src="/Assets/img/bad.png" alt="manhour_img" style="width:110px; height:110px;">
+              <br>見積もり失敗
+            <% elsif @manhour_fb.fact == 2 %>
+              <img src="/Assets/img/happy.png" alt="manhour_img" style="width:110px; height:110px;">
+              <br>見積もり成功
+            <% elsif @manhour_fb.fact == 3 %>
+              <img src="/Assets/img/robot.png" alt="manhour_img" style="width:110px; height:110px;">
+              <br>高すぎた見積もり
+            <% else %>
+              <%# <img src="/Assets/img/" alt="scale_img" style="width:110px; height:110px;"> %>
+              <br>未回答！！
+            <% end %>
+          </div>
         </div>
       </div>
       <div class="center-vertical content">
         <h3>前提知識</h3>
-        <div class="center-vertical content">
-          <% if @experience_val.your_estimation == 1 %>
-            <img src="/Assets/img/used-to.png" alt="exp_img" style="width:110px; height:110px;">
-            <br>かなり慣れている
-          <% elsif @experience_val.your_estimation == 2 %>
-            <img src="/Assets/img/nothing.png" alt="exp_img" style="width:110px; height:110px;">
-            <br>あるけど、自信ない
-          <% elsif @experience_val.your_estimation == 3 %>
-            <img src="/Assets/img/monky.png" alt="exp_img" style="width:110px; height:110px;">
-            <br>全くわからない！
-          <% else %>
-            <%# <img src="/Assets/img/" alt="scale_img" style="width:110px; height:110px;"> %>
-            <br>未回答！！
-          <% end %>
-
-          <% if @experience_fb.fact == 1 %>
-            <img src="/Assets/img/bad.png" alt="manhour_img" style="width:110px; height:110px;">
-            <br>見積もり失敗
-          <% elsif @experience_fb.fact == 2 %>
-            <img src="/Assets/img/happy.png" alt="manhour_img" style="width:110px; height:110px;">
-            <br>見積もり成功
-          <% elsif @experience_fb.fact == 3 %>
-            <img src="/Assets/img/robot.png" alt="manhour_img" style="width:110px; height:110px;">
-            <br>高すぎた見積もり
-          <% else %>
-            <%# <img src="/Assets/img/" alt="scale_img" style="width:110px; height:110px;"> %>
-            <br>未回答！！
-          <% end %>
-
+        <div class="center-hrizontal content">
+          <div class="center-vertical viewlog">
+            <% if @experience_val.your_estimation == 1 %>
+              <img src="/Assets/img/used-to.png" alt="exp_img" style="width:110px; height:110px;">
+              <br>かなり慣れている
+            <% elsif @experience_val.your_estimation == 2 %>
+              <img src="/Assets/img/nothing.png" alt="exp_img" style="width:110px; height:110px;">
+              <br>あるけど、自信ない
+            <% elsif @experience_val.your_estimation == 3 %>
+              <img src="/Assets/img/monky.png" alt="exp_img" style="width:110px; height:110px;">
+              <br>全くわからない！
+            <% else %>
+              <%# <img src="/Assets/img/" alt="scale_img" style="width:110px; height:110px;"> %>
+              <br>未回答！！
+            <% end %>
+          </div>
+          <div class="center-vertical viewlog">
+            <% if @experience_fb.fact == 1 %>
+              <img src="/Assets/img/bad.png" alt="manhour_img" style="width:110px; height:110px;">
+              <br>見積もり失敗
+            <% elsif @experience_fb.fact == 2 %>
+              <img src="/Assets/img/happy.png" alt="manhour_img" style="width:110px; height:110px;">
+              <br>見積もり成功
+            <% elsif @experience_fb.fact == 3 %>
+              <img src="/Assets/img/robot.png" alt="manhour_img" style="width:110px; height:110px;">
+              <br>高すぎた見積もり
+            <% else %>
+              <%# <img src="/Assets/img/" alt="scale_img" style="width:110px; height:110px;"> %>
+              <br>未回答！！
+            <% end %>
+          </div>
         </div>
       </div>
     </div>

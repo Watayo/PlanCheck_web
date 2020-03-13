@@ -248,3 +248,7 @@ h2 {
   border-radius: 15px;
   border-style: none;
 }
+
+.viewlog {
+  margin: 0 10vh;
+}
