@@ -196,7 +196,7 @@
         </div>
         <div class="center-vertical content">
           <h3>ハッシュタグ機能</h3>
-          <input type="text" name="hashtag" value="<%= @task.hashtag%>" placeholder="ハッシュタグ" style="font-size:30px; width:75%">
+          <input type="text" name="hashtag" value="<%= CGI.escapeHTML(@task.hashtag) %>" placeholder="ハッシュタグ" style="font-size:30px; width:75%">
         </div>
         <div class="center-hrizontal content">
           <input class="button" type="submit" value="登録">

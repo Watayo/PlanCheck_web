@@ -1,7 +1,7 @@
 class CreateEstimations < ActiveRecord::Migration[5.2]
   def change
     create_table :estimations do |t|
-      t.integer :your_estimation
+      t.integer :your_estimation, default: 0
       t.text :estimation_comment
       t.references :task_scale
       t.references :task_period

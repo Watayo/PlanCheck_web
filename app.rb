@@ -126,40 +126,38 @@ post '/task_register' do
     task_comment: params[:task_comment],
     hashtag: params[:hashtag]
   )
+  p register_task.save
+  if register_task.save
+       # 真
+    register_task.create_task_scale.create_estimation(
+      your_estimation: params[:scale_estimation].to_i,
+      estimation_comment: params[:period_comment]
+    )
 
-  register_task.create_task_scale.create_estimation(
-    your_estimation: params[:scale_estimation].to_i,
-    estimation_comment: params[:period_comment]
-  )
+    register_task.create_task_period.create_estimation(
+      your_estimation: params[:period_estimation].to_i,
+      estimation_comment: params[:period_comment]
+    )
 
-  register_task.create_task_period.create_estimation(
-    your_estimation: params[:period_estimation].to_i,
-    estimation_comment: params[:period_comment]
-  )
+    register_task.create_task_manhour.create_estimation(
+      your_estimation: params[:manhour_estimation].to_i,
+      estimation_comment: params[:manhour_comment]
+    )
 
-  register_task.create_task_manhour.create_estimation(
-    your_estimation: params[:manhour_estimation].to_i,
-    estimation_comment: params[:manhour_comment]
-  )
+    register_task.create_task_experience.create_estimation(
+      your_estimation: params[:experience_estimation].to_i,
+      estimation_comment: params[:experience_comment]
+    )
 
-  register_task.create_task_experience.create_estimation(
-    your_estimation: params[:experience_estimation].to_i,
-    estimation_comment: params[:experience_comment]
-  )
-  redirect "/userpage"
-end
+    register_task.task_scale.create_feedback()
+    register_task.task_period.create_feedback()
+    register_task.task_manhour.create_feedback()
+    register_task.task_experience.create_feedback()
 
-post '/task_delete/:id' do
-  delete_task = Task.find(params[:id])
-  delete_task.destroy
-  redirect '/userpage'
-end
-
-post '/task_completed/:id' do
-  done_task = Task.find(params[:id])
-  done_task.completed = !done_task.completed
-  done_task.save
-  redirect '/userpage'
+    redirect "/userpage"
+  else
+    erb :task_register
+  end
 end
 
 get '/task_feedback/:id' do
@@ -169,8 +167,6 @@ get '/task_feedback/:id' do
   @period_val = @task.task_period.estimation
   @manhour_val = @task.task_manhour.estimation
   @experience_val = @task.task_experience.estimation
-
-
 
   erb :task_feedback
 end

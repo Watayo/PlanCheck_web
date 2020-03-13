@@ -13,7 +13,7 @@
 ActiveRecord::Schema.define(version: 2020_03_13_030548) do
 
   create_table "estimations", force: :cascade do |t|
-    t.integer "your_estimation"
+    t.integer "your_estimation", default: 0
     t.text "estimation_comment"
     t.integer "task_scale_id"
     t.integer "task_period_id"
