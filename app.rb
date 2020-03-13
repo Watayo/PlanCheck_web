@@ -65,7 +65,7 @@ get '/line_callback' do
     "client_secret" => @line_secret,
     "code" => params[:code],
     "grant_type" => "authorization_code",
-    "redirect_uri" => ngrok
+    "redirect_uri" => heroku
   )
 
   req_options = {
@@ -330,18 +330,18 @@ post '/callback' do
         if event.message['text'] =~ /タスク登録/
           message = {
             type: 'text',
-            text: "タスク登録しましょ〜〜！\rhttps://47841a9a.ngrok.io/"
+            text: "タスク登録しましょ〜〜！\rhttps://plancheck-webapp.com/"
 
           }
         elsif event.message['text'] =~ /フィードバック/
           message = {
             type: 'text',
-            text: "タスク完了したの？\rそれなら覚えているうちに見積もりを反省しよう！\rhttps://47841a9a.ngrok.io/"
+            text: "タスク完了したの？\rそれなら覚えているうちに見積もりを反省しよう！\rhttps://plancheck-webapp.com/"
           }
         elsif  event.message['text'] =~ /今まで/
           message = {
             type: 'text',
-            text: "え？”今まで”の反省がみたいのかな？それなら！\rhttps://47841a9a.ngrok.io/"
+            text: "え？”今まで”の反省がみたいのかな？それなら！\rhttps://plancheck-webapp.com/"
           }
         else
           message = {
