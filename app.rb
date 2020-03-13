@@ -126,6 +126,7 @@ post '/task_register' do
     task_comment: params[:task_comment],
     hashtag: params[:hashtag]
   )
+
   p register_task.save
   if register_task.save
        # 真

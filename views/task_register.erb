@@ -6,9 +6,6 @@
 <%# -------------------ここからタスク情報入力---------------------- %>
 <%#  登録手順 タスク名 -> コスト見積もり -> コメント -> 期日 %>
 <section class="center-vertical content">
-  <% if @valid.errors.present %>
-    <h3 class="error">エラーがあります。</h3>
-  <% end %>
 <div class="post">
   <form action="/task_register" method="post">
     <%# タスク名入力 %>
