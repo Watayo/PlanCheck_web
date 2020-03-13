@@ -19,29 +19,73 @@
       <div class="center-vertical content">
         <h3>作業規模</h3>
         <div class="center-vertical content">
-          <img src="/Assets/img/<%= @scale_val.img %>" alt="scale_img" style="width:110px; height:110px;">
-          <br><%= @scale_val.text %>
+          <% if @scale_val.your_estimation == 1 %>
+            <img src="/Assets/img/day.png" alt="scale_img" style="width:110px; height:110px;">
+            <br>1日くらい
+          <% elsif @scale_val.your_estimation == 2 %>
+            <img src="/Assets/img/week.png" alt="scale_img" style="width:110px; height:110px;">
+            <br>1週間くらい
+          <% elsif @scale_val.your_estimation == 3 %>
+            <img src="/Assets/img/month.png" alt="scale_img" style="width:110px; height:110px;">
+            <br>1ヶ月くらい
+          <% else %>
+            <%# <img src="/Assets/img/" alt="scale_img" style="width:110px; height:110px;"> %>
+            <br>未回答！！
+          <% end %>
         </div>
       </div>
       <div class="center-vertical content">
         <h3>作業期間</h3>
         <div class="center-vertical content">
-          <img src="/Assets/img/<%= @period_val.img %>" alt="scale_img" style="width:110px; height:110px;">
-          <br><%= @period_val.text %>
+          <% if @period_val.your_estimation == 1 %>
+            <img src="/Assets/img/fast.png" alt="period_img" style="width:110px; height:110px;">
+            <br>なるはや
+          <% elsif @period_val.your_estimation == 2 %>
+            <img src="/Assets/img/just.png" alt="period_img" style="width:110px; height:110px;">
+            <br>ぴったり
+          <% elsif @peirod_val.your_estimation == 3 %>
+            <img src="/Assets/img/havetime.png" alt="period_img" style="width:110px; height:110px;">
+            <br>ゆったり
+          <% else %>
+            <%# <img src="/Assets/img/" alt="scale_img" style="width:110px; height:110px;"> %>
+            <br>未回答！！
+          <% end %>
         </div>
       </div>
       <div class="center-vertical content">
         <h3>作業工数</h3>
         <div class="center-vertical content">
-          <img src="/Assets/img/<%= @manhour_val.img %>" alt="scale_img" style="width:110px; height:110px;">
-          <br><%= @manhour_val.text %>
+          <% if @manhour_val.your_estimation == 1 %>
+            <img src="/Assets/img/less.png" alt="manhour_img" style="width:110px; height:110px;">
+            <br>少なめ感
+          <% elsif @manhour_val.your_estimation == 2 %>
+            <img src="/Assets/img/soso.png" alt="manhour_img" style="width:110px; height:110px;">
+            <br>やや多い
+          <% elsif @manhour_val.your_estimation == 3 %>
+            <img src="/Assets/img/many.png" alt="manhour_img" style="width:110px; height:110px;">
+            <br>絶対多い
+          <% else %>
+            <%# <img src="/Assets/img/" alt="scale_img" style="width:110px; height:110px;"> %>
+            <br>未回答！！
+          <% end %>
         </div>
       </div>
       <div class="center-vertical content">
         <h3>前提知識</h3>
         <div class="center-vertical content">
-          <img src="/Assets/img/<%= @experience_val.img %>" alt="scale_img" style="width:110px; height:110px;">
-          <br><%= @experience_val.text %>
+          <% if @experience_val.your_estimation == 1 %>
+            <img src="/Assets/img/used-to.png" alt="exp_img" style="width:110px; height:110px;">
+            <br>かなり慣れている
+          <% elsif @experience_val.your_estimation == 2 %>
+            <img src="/Assets/img/nothing.png" alt="exp_img" style="width:110px; height:110px;">
+            <br>あるけど、自信ない
+          <% elsif @experience_val.your_estimation == 3 %>
+            <img src="/Assets/img/monky.png" alt="exp_img" style="width:110px; height:110px;">
+            <br>全くわからない！
+          <% else %>
+            <%# <img src="/Assets/img/" alt="scale_img" style="width:110px; height:110px;"> %>
+            <br>未回答！！
+          <% end %>
         </div>
       </div>
     </div>
@@ -84,19 +128,19 @@
             <div class="input-content">
               <input id="bad2" type="radio" name="period_feedback" value="1">
               <label for="bad2">
-                <img src="/Assets/img/悲しい.png" alt="bad2" style="width:110px; height:110px;" >
+                <img src="/Assets/img/bad.png" alt="bad2" style="width:110px; height:110px;" >
               </label><br>めっちゃかかった
             </div>
             <div class="input-content">
               <input id="exa2" type="radio" name="period_feedback" value="2">
               <label for="exa2">
-                <img src="/Assets/img/うれしい.png" alt="exa2" style="width:110px; height:110px;" >
+                <img src="/Assets/img/happy.png" alt="exa2" style="width:110px; height:110px;" >
               </label><br>見積もりぴったし
             </div>
             <div class="input-content">
               <input id="rob2" type="radio" name="period_feedback" value="3">
               <label for="rob2">
-                <img src="/Assets/img/ロボット.png" alt="rob2" style="width:110px; height:110px;" >
+                <img src="/Assets/img/robot.png" alt="rob2" style="width:110px; height:110px;" >
               </label><br>ゆとりがあった
             </div>
           </div>
@@ -108,19 +152,19 @@
             <div class="input-content">
               <input id="bad3" type="radio" name="manhour_feedback" value="1">
               <label for="bad3">
-                <img src="/Assets/img/悲しい.png" alt="bad3" style="width:110px; height:110px;" >
+                <img src="/Assets/img/bad.png" alt="bad3" style="width:110px; height:110px;" >
               </label><br>過信してました
             </div>
             <div class="input-content">
               <input id="exa3" type="radio" name="manhour_feedback" value="2">
               <label for="exa3">
-                <img src="/Assets/img/うれしい.png" alt="exa3" style="width:110px; height:110px;" >
+                <img src="/Assets/img/happy.png" alt="exa3" style="width:110px; height:110px;" >
               </label><br>思った通り
             </div>
             <div class="input-content">
               <input id="rob3" type="radio" name="manhour_feedback" value="3">
               <label for="rob3">
-                <img src="/Assets/img/ロボット.png" alt="rob3" style="width:110px; height:110px;" >
+                <img src="/Assets/img/robot.png" alt="rob3" style="width:110px; height:110px;" >
               </label><br>思ってたより少なめ
             </div>
           </div>
@@ -132,19 +176,19 @@
             <div class="input-content">
               <input id="bad4" type="radio" name="experience_feedback" value="1">
               <label for="bad4">
-                <img src="/Assets/img/悲しい.png" alt="bad4" style="width:110px; height:110px;" >
+                <img src="/Assets/img/bad.png" alt="bad4" style="width:110px; height:110px;" >
               </label><br>全然知らんかった
             </div>
             <div class="input-content">
               <input id="exa4" type="radio" name="experience_feedback" value="2">
               <label for="exa4">
-                <img src="/Assets/img/うれしい.png" alt="exa4" style="width:110px; height:110px;" >
+                <img src="/Assets/img/happy.png" alt="exa4" style="width:110px; height:110px;" >
               </label><br>思った通り
             </div>
             <div class="input-content">
               <input id="rob4" type="radio" name="experience_feedback" value="3">
               <label for="rob4">
-                <img src="/Assets/img/ロボット.png" alt="rob4" style="width:110px; height:110px;" >
+                <img src="/Assets/img/robot.png" alt="rob4" style="width:110px; height:110px;" >
               </label><br>全部知ってた
             </div>
           </div>

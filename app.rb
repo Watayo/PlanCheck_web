@@ -56,7 +56,7 @@ end
 get '/line_callback' do
   local = "http://localhost:32788/line_callback"
   heroku = "https://plancheck-webapp.com/line_callback"
-  ngrok = "https://4c4449cc.ngrok.io"
+  ngrok = "https://47841a9a.ngrok.io/line_callback"
   uri = URI.parse("https://api.line.me/oauth2/v2.1/token")
   request = Net::HTTP::Post.new(uri)
   request.content_type = "application/x-www-form-urlencoded"
@@ -65,7 +65,7 @@ get '/line_callback' do
     "client_secret" => @line_secret,
     "code" => params[:code],
     "grant_type" => "authorization_code",
-    "redirect_uri" => heroku
+    "redirect_uri" => ngrok
   )
 
   req_options = {
@@ -127,86 +127,78 @@ post '/task_register' do
     hashtag: params[:hashtag]
   )
 
-  scale = params[:scale_estimation]
-  period = params[:period_estimation]
-  manhour = params[:manhour_estimation]
-  exp = params[:experience_estimation]
+  # scale_text = ""
+  # scale_img = ""
+  # if scale == 1
+  #   scale_text = "1日くらい"
+  #   scale_img = "day.png"
+  # elsif scale == 2
+  #   scale_text = "1週間くらい"
+  #   scale_img = "week.png"
+  # else
+  #   scale_text = "1ヶ月くらい"
+  #   scale_img = "month.png"
+  # end
 
-  if scale == 1
-    @scale_text = "1日くらい"
-    @scale_img = "day.png"
-  elsif scale == 2
-    @scale_text = "1週間くらい"
-    @scale_img = "week.png"
-  else
-    @scale_text = "1ヶ月くらい"
-    @scale_img = "month.png"
-  end
+  # period_text = ""
+  # period_img = ""
+  # if period == 1
+  #   period_text = "なるはや"
+  #   period_img = "fast.png"
+  # elsif period == 2
+  #   period_text = "ぴったり"
+  #   period_img = "just.png"
+  # else
+  #   period_text = "ゆったり"
+  #   peirod_img = "havetime.png"
+  # end
 
-  if period == 1
-    @period_text = "なるはや"
-    @period_img = "fast.png"
-  elsif period == 2
-    @period_text = "ぴったり"
-    @period_img = "just.png"
-  else
-    @period_text = "ゆったり"
-    @peirod_img = "havetime.png"
-  end
-
-  if manhour == 1
-    @manhour_text = "少なめ感"
-    @manhour_img = "less.png"
-  elsif manhour == 2
-    @manhour_text = "やや多め"
-    @manhour_img = "soso.png"
-  else
-    @manhour_text = "絶対多い"
-    @manhour_img = "many.png"
-  end
-
-  if exp == 1
-    @exp_text = "かなり慣れてる"
-    @exp_img = "used-to.png"
-  elsif exp == 2
-    @exp_text = "あるけど、自信がない"
-    @exp_img = "nothing.png"
-  else
-    @exp_text = "全く知らん"
-    @exp_img = "monky.png"
-  end
+  # manhour_text = ""
+  # manhour_img = ""
+  # if manhour == 1
+  #   manhour_text = "少なめ感"
+  #   manhour_img = "less.png"
+  # elsif manhour == 2
+  #   manhour_text = "やや多め"
+  #   manhour_img = "soso.png"
+  # else
+  #   manhour_text = "絶対多い"
+  #   manhour_img = "many.png"
+  # end
 
 
-  # パラメーターごとにタスクを登録したい
-  register_task.build_task_scale.build_estimation(
-    text: @scale_text,
-    img: @scale_img,
-    estimation_comment: params[:scale_comment]
-  ).save
+  # exp_text = ""
+  # exp_img = ""
+  # if exp == 1
+  #   exp_text = "かなり慣れてる"
+  #   exp_img = "used-to.png"
+  # elsif exp == 2
+  #   exp_text = "あるけど、自信がない"
+  #   exp_img = "nothing.png"
+  # else
+  #   exp_text = "全く知らん"
+  #   exp_img = "monky.png"
+  # end
 
-  register_task.build_task_period.build_estimation(
-    text: @period_text,
-    img: @period_img,
+  register_task.create_task_scale.create_estimation(
+    your_estimation: params[:scale_estimation].to_i,
     estimation_comment: params[:period_comment]
-  ).save
+  )
 
-  register_task.build_task_manhour.build_estimation(
-    text: @manhour_text,
-    img: @manhour_img,
+  register_task.create_task_period.create_estimation(
+    your_estimation: params[:period_estimation].to_i,
+    estimation_comment: params[:period_comment]
+  )
+
+  register_task.create_task_manhour.create_estimation(
+    your_estimation: params[:manhour_estimation].to_i,
     estimation_comment: params[:manhour_comment]
-  ).save
+  )
 
-  register_task.build_task_experience.build_estimation(
-    text: @exp_text,
-    img: @exp_img,
+  register_task.create_task_experience.create_estimation(
+    your_estimation: params[:experience_estimation].to_i,
     estimation_comment: params[:experience_comment]
-  ).save
-
-  register_task.build_task_scale.build_feedback().save
-  register_task.build_task_period.build_feedback().save
-  register_task.build_task_manhour.build_feedback().save
-  register_task.build_task_experience.build_feedback().save
-
+  )
   redirect "/userpage"
 end
 
@@ -232,6 +224,7 @@ get '/task_feedback/:id' do
   @experience_val = @task.task_experience.estimation
 
 
+
   erb :task_feedback
 end
 
@@ -239,22 +232,22 @@ post '/feedback_register' do
   @task = Task.find(params[:task_id])
 
 
-  @task.build_task_scale.build_feedback(
+  @task.create_task_scale.create_feedback(
     fact: params[:scale_feedback].to_i,
     feedback_comment: params[:scale_comment]
-  ).save
-  @task.build_task_period.build_feedback(
+  )
+  @task.create_task_period.create_feedback(
     fact: params[:period_feedback].to_i,
     feedback_comment: params[:period_comment]
-  ).save
-  @task.build_task_manhour.build_feedback(
+  )
+  @task.create_task_manhour.create_feedback(
     fact: params[:manhour_feedback].to_i,
     feedback_comment: params[:manhour_comment]
-  ).save
-  @task.build_task_experience.build_feedback(
+  )
+  @task.create_task_experience.create_feedback(
     fact: params[:experience_feedback].to_i,
     feedback_comment: params[:experience_comment]
-  ).save
+  )
 
   @task.feedback_done = true
   @task.save
@@ -336,6 +329,12 @@ get '/task_log/:id' do
   @experience_fb = @task.task_experience.feedback
 
   erb :task_log
+end
+
+post '/task_delete_log/:id' do
+  delete_task = Task.find(params[:id])
+  delete_task.destroy
+  redirect '/user_statistics'
 end
 
 # --------------------LINE-----------------------

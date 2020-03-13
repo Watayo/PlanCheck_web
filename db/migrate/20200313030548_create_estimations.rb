@@ -1,8 +1,7 @@
 class CreateEstimations < ActiveRecord::Migration[5.2]
   def change
     create_table :estimations do |t|
-      t.string :text
-      t.string :img
+      t.integer :your_estimation
       t.text :estimation_comment
       t.references :task_scale
       t.references :task_period
