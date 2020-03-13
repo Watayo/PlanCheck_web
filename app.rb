@@ -5,7 +5,7 @@ require 'sinatra/activerecord'
 require 'oauth2'
 require 'jwt'
 require './models'
-
+require 'json'
 require 'line/bot'
 
 enable :sessions
@@ -65,7 +65,7 @@ get '/line_callback' do
     "client_secret" => @line_secret,
     "code" => params[:code],
     "grant_type" => "authorization_code",
-    "redirect_uri" => heroku
+    "redirect_uri" => ngrok
   )
 
   req_options = {
@@ -298,7 +298,30 @@ post '/callback' do
     error 400 do 'Bad Request' end
   end
 
+  parsed_json = JSON.parse(body)
+
   events = client.parse_events_from(body)
+
+  # ユーザー情報を取得する。
+  # ID = U146840584a28358f1dfc87986eb6b64b　（確認用）
+  user_id = parsed_json["events"][0]["source"]["userId"]
+  p '------------'
+  p user_id
+
+  user_response = client.get_profile(user_id)
+  case user_response
+  when Net::HTTPSuccess then
+    contact = JSON.parse(user_response.body)
+    p contact['displayName']
+    p contact['pictureUrl']
+    p contact['statusMessage']
+  else
+    p "#{response.code} #{response.body}"
+  end
+
+  # ある文字列を取得したときに、そのユーザーの情報からログインしてタスク登録の画面まで飛ばす。
+
+  #
   events.each do |event|
     case event
     when Line::Bot::Event::Message
@@ -307,7 +330,23 @@ post '/callback' do
         if event.message['text'] =~ /タスク登録/
           message = {
             type: 'text',
-            text: '成功じゃん！！！'
+            text: "タスク登録しましょ〜〜！\rhttps://47841a9a.ngrok.io/"
+
+          }
+        elsif event.message['text'] =~ /フィードバック/
+          message = {
+            type: 'text',
+            text: "タスク完了したの？\rそれなら覚えているうちに見積もりを反省しよう！\rhttps://47841a9a.ngrok.io/"
+          }
+        elsif  event.message['text'] =~ /今まで/
+          message = {
+            type: 'text',
+            text: "え？”今まで”の反省がみたいのかな？それなら！\rhttps://47841a9a.ngrok.io/"
+          }
+        else
+          message = {
+            type: 'text',
+            text: "Ooops!!!!!"
           }
         end
         client.reply_message(event['replyToken'], message)
