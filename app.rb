@@ -348,20 +348,20 @@ post '/callback' do
         elsif event.message['text'] =~ /タスク登録/
           message = {
             type: 'text',
-            text: "タスク登録しましょ〜〜！\rhttps://20695b4c.ngrok.io/userpage"
+            text: "タスク登録しましょ〜〜！\rhttps://plancheck-webapp.com/"
 
           }
           client.reply_message(event['replyToken'], message)
         elsif event.message['text'] =~ /フィードバック/
           message = {
             type: 'text',
-            text: "タスク完了したの？\rそれなら覚えているうちに見積もりを反省しよう！\rhttps://20695b4c.ngrok.io"
+            text: "タスク完了したの？\rそれなら覚えているうちに見積もりを反省しよう！\rhttps://plancheck-webapp.com/"
           }
           client.reply_message(event['replyToken'], message)
         elsif  event.message['text'] =~ /今まで/
           message = {
             type: 'text',
-            text: "え？”今まで”の反省がみたいのかな？それなら！\rhttps://20695b4c.ngrok.io"
+            text: "え？”今まで”の反省がみたいのかな？それなら！\https://plancheck-webapp.com/"
           }
           client.reply_message(event['replyToken'], message)
         else
