@@ -302,8 +302,6 @@ post '/callback' do
   # ユーザー情報を取得する。
   # ID = U146840584a28358f1dfc87986eb6b64b　（確認用）
   user_id = parsed_json["events"][0]["source"]["userId"]
-  p '------------'
-  p user_id
 
   user_response = client.get_profile(user_id)
   case user_response
@@ -318,35 +316,61 @@ post '/callback' do
 
   # ある文字列を取得したときに、そのユーザーの情報からログインしてタスク登録の画面まで飛ばす。
 
+  user = User.find_or_create_by(sub: user_id)
+  if user.persisted?
+    session[:user] = user.id
+  end
+
+  user_tasks = current_user.tasks.where(feedback_done: false)
+
   #
   events.each do |event|
     case event
     when Line::Bot::Event::Message
       case event.type
       when Line::Bot::Event::MessageType::Text
-        if event.message['text'] =~ /タスク登録/
+        if event.message['text'] =~ /リスト/
+          if user_tasks.present?
+            user_tasks.each do |task|
+              message = {
+                type: 'text',
+                text: "タスク名：#{task.name}\r#{task.due_date}締め切りです!\r"
+              }
+              client.reply_message(event['replyToken'], message)
+            end
+          else
+            message = {
+                type: 'text',
+                text: "実行中のタスクは今ないよ！"
+              }
+              client.reply_message(event['replyToken'], message)
+          end
+        elsif event.message['text'] =~ /タスク登録/
           message = {
             type: 'text',
-            text: "タスク登録しましょ〜〜！\rhttps://plancheck-webapp.com/"
+            text: "タスク登録しましょ〜〜！\rhttps://20695b4c.ngrok.io/userpage"
 
           }
+          client.reply_message(event['replyToken'], message)
         elsif event.message['text'] =~ /フィードバック/
           message = {
             type: 'text',
-            text: "タスク完了したの？\rそれなら覚えているうちに見積もりを反省しよう！\rhttps://plancheck-webapp.com/"
+            text: "タスク完了したの？\rそれなら覚えているうちに見積もりを反省しよう！\rhttps://20695b4c.ngrok.io"
           }
+          client.reply_message(event['replyToken'], message)
         elsif  event.message['text'] =~ /今まで/
           message = {
             type: 'text',
-            text: "え？”今まで”の反省がみたいのかな？それなら！\rhttps://plancheck-webapp.com/"
+            text: "え？”今まで”の反省がみたいのかな？それなら！\rhttps://20695b4c.ngrok.io"
           }
+          client.reply_message(event['replyToken'], message)
         else
           message = {
             type: 'text',
-            text: "Ooops!!!!!"
+            text: "Ooops!!!!!\rタスク登録、とか送信してみて！"
           }
+          client.reply_message(event['replyToken'], message)
         end
-        client.reply_message(event['replyToken'], message)
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])
 
