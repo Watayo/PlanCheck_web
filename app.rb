@@ -161,6 +161,19 @@ post '/task_register' do
   end
 end
 
+post '/task_delete/:id' do
+  delete_task = Task.find(params[:id])
+  delete_task.destroy
+  redirect '/userpage'
+end
+
+post '/task_completed/:id' do
+  done_task = Task.find(params[:id])
+  done_task.completed = !done_task.completed
+  done_task.save
+  redirect '/userpage'
+end
+
 get '/task_feedback/:id' do
   @task = Task.find(params[:id])
 
